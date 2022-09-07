@@ -57,6 +57,6 @@ public class ZipLinkedList {
     }
 
     public static void main(String[] args) {
-        
+
     }
 }
