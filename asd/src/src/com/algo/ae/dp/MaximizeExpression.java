@@ -20,6 +20,7 @@ import java.util.List;
  * -> 6 - (-3) + 2 - 7 = 4
  */
 public class MaximizeExpression {
+    // Time : O(n^4), space : O(1)
     public static int
     maximizeExpressionBF(int[] array) {
         if (array.length < 4) {
@@ -44,6 +45,7 @@ public class MaximizeExpression {
         return maxValue;
     }
 
+    // Time : O(n), space : O(n)
     public static int
     maximizeExpressionE(int[] array) {
         if (array.length < 4) {
