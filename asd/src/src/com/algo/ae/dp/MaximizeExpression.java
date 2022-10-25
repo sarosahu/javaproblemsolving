@@ -1,5 +1,9 @@
 package com.algo.ae.dp;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Maximize Expression
  *
@@ -40,9 +44,44 @@ public class MaximizeExpression {
         return maxValue;
     }
 
+    public static int
+    maximizeExpressionE(int[] array) {
+        if (array.length < 4) {
+            return 0;
+        }
+        List<Integer> maxA = new ArrayList<>(Arrays.asList(array[0]));
+        List<Integer> maxAMinusB = new ArrayList<>(Arrays.asList(Integer.MIN_VALUE));
+        List<Integer> maxAMinusBPlusC = new ArrayList<>(Arrays.asList(Integer.MIN_VALUE, Integer.MIN_VALUE));
+        List<Integer> maxAMinusBPlusCMinusD = new ArrayList<>(Arrays.asList(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE));
+
+        for (int i = 1; i < array.length; ++i) {
+            int currMax = Math.max(maxA.get(i - 1), array[i]);
+            maxA.add(currMax);
+        }
+
+        for (int i = 1; i < array.length; ++i) {
+            int currMax = Math.max(maxAMinusB.get(i - 1), maxA.get(i - 1) - array[i]);
+            maxAMinusB.add(currMax);
+        }
+
+        for (int i = 2; i < array.length; ++i) {
+            int currMax = Math.max(maxAMinusBPlusC.get(i - 1), maxAMinusB.get(i - 1) + array[i]);
+            maxAMinusBPlusC.add(currMax);
+        }
+
+        for (int i = 3; i < array.length; ++i) {
+            int currMax = Math.max(maxAMinusBPlusCMinusD.get(i - 1), maxAMinusBPlusC.get(i - 1) - array[i]);
+            maxAMinusBPlusCMinusD.add(currMax);
+        }
+        return maxAMinusBPlusCMinusD.get(array.length - 1);
+    }
+
     public static void main(String[] args) {
         int[] array = {3, 6, 1, -3, 2, 7};
         int maxValue = maximizeExpressionBF(array);
-        System.out.println("Maximum value is : " + maxValue);
+        System.out.println("Maximum value with BF approach is : " + maxValue);
+
+        maxValue = maximizeExpressionE(array);
+        System.out.println("Maximum value with efficient approach is : " + maxValue);
     }
 }
