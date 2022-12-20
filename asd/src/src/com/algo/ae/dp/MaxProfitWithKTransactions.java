@@ -25,4 +25,24 @@ package com.algo.ae.dp;
  * Sample output: 93 // Buy: 5, Sell: 11; Buy: 3, Sell: 90
  */
 public class MaxProfitWithKTransactions {
+    public static int maxProfitWithKTransactions(int[] prices, int k) {
+        if (prices.length == 0) {
+            return 0;
+        }
+        int [][] profits = new int[k+1][prices.length];
+        for (int t = 1; t < k + 1; ++t) {
+            int maxSoFar = Integer.MIN_VALUE;
+            for (int d = 1; d < prices.length; ++d) {
+                maxSoFar = Math.max(maxSoFar, profits[t - 1][d - 1] - prices[d - 1]);
+                profits[t][d] = Math.max(profits[t][d - 1], maxSoFar + prices[d]);
+            }
+        }
+        return profits[k][prices.length - 1];
+    }
+
+    public static void main(String[] args) {
+        int[] prices = {5, 11, 3, 50, 60, 90};
+        int maxProfit = maxProfitWithKTransactions(prices, 2);
+        System.out.println("Max profit : " + maxProfit);
+    }
 }
