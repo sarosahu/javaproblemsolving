@@ -76,7 +76,7 @@ public class BstConstruction {
                     parent = curr;
                     curr = curr.right;
                 } else {
-                    // Found the node 
+                    // Found the node
                     if (curr.right != null) {
                         curr.copyNextInOrderNodeAndDelete();
                     } else {
