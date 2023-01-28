@@ -39,7 +39,8 @@ public class MinHeapConstruction {
             // Write your code here.
             int childOneIndex = currentIdx * 2 + 1;
             while (childOneIndex <= endIdx) {
-                int childTwoIndex = currentIdx * 2 + 2 <= endIdx ? currentIdx * 2 + 2 : -1;
+                int childTwoIndex = currentIdx * 2 + 2 <= endIdx ?
+                        currentIdx * 2 + 2 : -1;
                 int indexToSwap;
                 if (childTwoIndex != -1 && heap.get(childTwoIndex) < heap.get(childOneIndex)) {
                     indexToSwap = childTwoIndex;
