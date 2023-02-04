@@ -1,5 +1,9 @@
 package com.algo.ae.dp;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Knapsack Problem
  *
@@ -27,4 +31,51 @@ package com.algo.ae.dp;
  * Sample output: [10, [1, 3]] // items [4, 3] and [6, 7]
  */
 public class KnapsackProblem {
+    public static List<List<Integer>>
+    knapsackProblem(int[][] items, int capacity) {
+
+        int[][] matrix = new int[items.length + 1][capacity + 1];
+        Arrays.fill(matrix[0], 0);
+        for (int i = 0; i < matrix.length; ++i) {
+            matrix[i][0] = 0;
+        }
+
+        for (int i = 1; i <= items.length; ++i) {
+            int currWeight = items[i-1][1];
+            int currValue = items[i-1][0];
+
+            for (int c = 0; c <= capacity; ++c) {
+                if (currWeight > c) {
+                    matrix[i][c] = matrix[i-1][c];
+                } else {
+                    matrix[i][c] = Math.max(matrix[i-1][c], matrix[i-1][c - currWeight] + currValue);
+                }
+            }
+        }
+        int maxValue = matrix[items.length][capacity];
+        return getKnapsackItems(matrix, items, maxValue);
+    }
+
+    public static List<List<Integer>> getKnapsackItems(
+            int[][] matrix, int[][] items, int maxValue) {
+        List<List<Integer>> seq = new ArrayList<>();
+        List<Integer> totalValue = new ArrayList<>();
+        totalValue.add(maxValue);
+        seq.add(totalValue);
+        seq.add(new ArrayList<>());
+        List<Integer> indexList = seq.get(1);
+        int i = matrix.length - 1;
+        int c = matrix[0].length - 1;
+        while (i > 0) {
+            if (matrix[i][c] != matrix[i-1][c]) {
+                indexList.add(0, i - 1);
+                c -= items[i-1][1];
+            }
+            if (c == 0) {
+                break;
+            }
+            i--;
+        }
+        return seq;
+    }
 }
