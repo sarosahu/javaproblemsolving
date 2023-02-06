@@ -14,7 +14,7 @@ package com.algo.ae.heaps;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-public class MergeKSortedArrays {
+public class SortKSortedArrays {
     // Time: Nlog(k)
     public void sortKSortedArray(int[] array, int k) {
         Queue<Integer> minHeap = new PriorityQueue<>();
@@ -35,7 +35,7 @@ public class MergeKSortedArrays {
     public static void main(String[] args) {
         int[] arr = {3, 2, 1, 5, 4, 7, 6, 5};
         int k = 3;
-        MergeKSortedArrays obj = new MergeKSortedArrays();
+        SortKSortedArrays obj = new SortKSortedArrays();
         System.out.println("Original array: ");
         for (int a : arr) {
             System.out.printf("%d ", a);

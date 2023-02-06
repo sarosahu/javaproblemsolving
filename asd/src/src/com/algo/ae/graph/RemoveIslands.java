@@ -1,5 +1,9 @@
 package com.algo.ae.graph;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
 /**
  * Remove Islands
  *
@@ -46,4 +50,158 @@ package com.algo.ae.graph;
  * ]
  */
 public class RemoveIslands {
+
+    // Time: O(wh), Space: O(wh) where w and h
+    // are the width and height of the input matrix
+    public int[][] removeIslands(int[][] matrix) {
+        boolean[][] onesConnectedToBorder =
+                new boolean[matrix.length][matrix[0].length];
+        for (int i = 0; i < matrix.length; ++i) {
+            onesConnectedToBorder[i][matrix[0].length - 1] = false;
+        }
+
+        // Find all the 1s that are not islands
+        for (int row = 0; row < matrix.length; ++row) {
+            for (int col = 0; col < matrix[row].length; ++col) {
+                boolean rowIsBorder = row == 0 || row == matrix.length - 1;
+                boolean colIsBorder = col == 0 || col == matrix[row].length - 1;
+                boolean isBorder = rowIsBorder || colIsBorder;
+
+                if (!isBorder || matrix[row][col] != 1) {
+                    continue;
+                }
+
+                findOnesConnectedToBorder(matrix, row, col, onesConnectedToBorder);
+            }
+        }
+
+        for (int row = 1; row < matrix.length - 1; ++row) {
+            for (int col = 1; col < matrix[row].length - 1; ++col) {
+                if (onesConnectedToBorder[row][col]) {
+                    continue;
+                }
+                matrix[row][col] = 0;
+            }
+        }
+        return matrix;
+    }
+
+    public void findOnesConnectedToBorder(int[][] matrix,
+                                          int startRow, int startCol,
+                                          boolean[][] onesConnectedToBorder)
+    {
+        Stack<int[]> stack = new Stack<>();
+        stack.push(new int[] {startRow, startCol});
+
+        while (!stack.isEmpty()) {
+            int[] currPosition = stack.pop();
+            int currRow = currPosition[0];
+            int currCol = currPosition[1];
+
+            boolean alreadyVisited = onesConnectedToBorder[currRow][currCol];
+            if (alreadyVisited) {
+                continue;
+            }
+            onesConnectedToBorder[currRow][currCol] = true;
+
+            int[][] neighbors = getNeighbors(matrix, currRow, currCol);
+
+            for (int [] neighbor : neighbors) {
+                int row = neighbor[0];
+                int col = neighbor[1];
+
+                if (matrix[row][col] != 1) {
+                    continue;
+                }
+                stack.push(neighbor);
+            }
+        }
+    }
+
+    public int[][] getNeighbors(int[][] matrix, int row, int col) {
+        int nrows = matrix.length;
+        int ncols = matrix[row].length;
+        List<int[]> temp = new ArrayList<>();
+
+        if (row - 1 >= 0) {
+            temp.add(new int[] {row - 1, col});
+        }
+
+        if (row + 1 < nrows) {
+            temp.add(new int[] {row + 1, col});
+        }
+
+        if (col - 1 >= 0) {
+            temp.add(new int[] {row, col - 1});
+        }
+
+        if (col + 1 < ncols) {
+            temp.add(new int[] {row, col + 1});
+        }
+
+        int [][] neighbors = new int[temp.size()][2];
+        for (int i = 0; i < temp.size(); ++i) {
+            neighbors[i] = temp.get(i);
+        }
+
+        return neighbors;
+    }
+
+    // Time: O(wh), Space: O(wh) where w and h
+    // are the width and height of the input matrix
+    public int[][] removeIslands2(int[][] matrix) {
+        for (int row = 0; row < matrix.length; ++row) {
+            for (int col = 0; col < matrix[row].length; ++col) {
+                boolean rowIsBorder = row == 0 || row == matrix.length - 1;
+                boolean colIsBorder = col == 0 || col == matrix[row].length - 1;
+                boolean isBorder = rowIsBorder || colIsBorder;
+
+                if (!isBorder || matrix[row][col] != 1) {
+                    continue;
+                }
+
+                changeOnesConnectedToBorderToTwos(matrix, row, col);
+            }
+        }
+
+        for (int row = 0; row < matrix.length; ++row) {
+            for (int col = 0; col < matrix[row].length; ++col) {
+                int color = matrix[row][col];
+
+                if (color == 1) {
+                    matrix[row][col] = 0;
+                } else if (color == 2) {
+                    matrix[row][col] = 1;
+                }
+            }
+        }
+
+        return matrix;
+    }
+
+    public void changeOnesConnectedToBorderToTwos(int[][] matrix,
+                                                  int startRow,
+                                                  int startCol) {
+        Stack<int[]> stack = new Stack<>();
+        stack.push(new int[] {startRow, startCol});
+
+        while (stack.size() > 0) {
+            int[] currPosition = stack.pop();
+            int currRow = currPosition[0];
+            int currCol = currPosition[1];
+
+            matrix[currRow][currCol] = 2;
+
+            int[][] neighbors = getNeighbors(matrix, currRow, currCol);
+            for (int[] neighbor : neighbors) {
+                int row = neighbor[0];
+                int col = neighbor[1];
+
+                if (matrix[row][col] != 1) {
+                    continue;
+                }
+                stack.push(neighbor);
+            }
+        }
+    }
 }
