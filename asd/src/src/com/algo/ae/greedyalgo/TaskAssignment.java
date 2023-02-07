@@ -1,5 +1,7 @@
 package com.algo.ae.greedyalgo;
 
+import java.util.*;
+
 /**
  * Task Assignment
  *
@@ -35,4 +37,39 @@ package com.algo.ae.greedyalgo;
  * ]
  */
 public class TaskAssignment {
+    public ArrayList<ArrayList<Integer>> taskAssignment(int k, ArrayList<Integer> tasks) {
+        ArrayList<ArrayList<Integer>> pairedTasks = new ArrayList<>();
+        Map<Integer, List<Integer>> taskDurationToIndices =
+                getTaskDurationToIndices(tasks);
+
+        Collections.sort(tasks);
+        int left = 0, right = tasks.size() - 1;
+        while (left <= right) {
+            ArrayList<Integer> pairList = new ArrayList<>();
+
+            List<Integer> task1ToIndexList = taskDurationToIndices.get(tasks.get(left));
+            int taskIndex1 = task1ToIndexList.remove(task1ToIndexList.size() -1);
+            List<Integer> task2ToIndexList = taskDurationToIndices.get(tasks.get(right));
+            int taskIndex2 = task2ToIndexList.remove(task2ToIndexList.size() -1);
+            pairedTasks.add(new ArrayList<>(Arrays.asList(taskIndex1, taskIndex2)));
+            ++left;
+            --right;
+        }
+        return pairedTasks;
+    }
+
+    public Map<Integer, List<Integer>> getTaskDurationToIndices(ArrayList<Integer> tasks) {
+        Map<Integer, List<Integer>> taskDurationsToIndices =
+                new HashMap<Integer, List<Integer>>();
+        for (int i = 0; i < tasks.size(); ++i) {
+            int task = tasks.get(i);
+            if (!taskDurationsToIndices.containsKey(task)) {
+                List<Integer> indices = new ArrayList<Integer>();
+                taskDurationsToIndices.put(tasks.get(i), indices);
+            }
+            taskDurationsToIndices.get(task).add(i);
+        }
+
+        return taskDurationsToIndices;
+    }
 }
