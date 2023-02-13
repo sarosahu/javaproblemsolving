@@ -12,7 +12,7 @@ package com.algo.ae.string;
  * Note that both strings will contain at least one character. If the strings are
  * the same, your function should return true.
  *
- * Sampel Input:
+ * Sample Input:
  * stringOne = "hello"
  * stringTwo = "hollo"
  * Sample Output: true // A single replace at index 1 of either string can make the strings equal
