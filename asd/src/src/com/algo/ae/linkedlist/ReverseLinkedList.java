@@ -12,9 +12,16 @@ package com.algo.ae.linkedlist;
  *
  * You can asssume that the input Linked List will always have at least one node;
  * in other words, the head will never be None/null.
+ *
+ * Sample Input:
+ * head = 0 -> 1 -> 2 -> 3 -> 4 -> 5
+ *
+ * Sample Output: 5 -> 4 -> 3 -> 2 -> 1 -> 0
  */
 public class ReverseLinkedList {
-    public static LinkedList reverseLinkedList(LinkedList head) {
+
+    // Time : O(n), Space : O(1)
+    public static LinkedList reverseLinkedListL(LinkedList head) {
         // Write your code here.
         LinkedList iter = head;
         LinkedList prev = null;
@@ -25,6 +32,23 @@ public class ReverseLinkedList {
             iter = nextNode;
         }
         return prev;
+    }
+
+    // Recursive approach.
+    // Time : O(n) | Space: O(n)
+    public static LinkedList reverseLinkedListR(LinkedList head) {
+        return reverseHelper(null, head);
+    }
+
+    public static LinkedList reverseHelper(LinkedList prev,
+                                           LinkedList curr)
+    {
+        if (curr == null) {
+            return prev;
+        }
+        LinkedList nextNode = curr.next;
+        curr.next = prev;
+        return reverseHelper(curr, nextNode);
     }
 
     static class LinkedList {

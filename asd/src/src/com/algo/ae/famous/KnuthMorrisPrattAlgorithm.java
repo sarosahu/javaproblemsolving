@@ -2,7 +2,21 @@ package com.algo.ae.famous;
 
 import java.util.Arrays;
 
+/**
+ * Knuth--Morris -- Pratt Algorithm
+ *
+ * Write a function that takes in two strings and checks if the first string contains the
+ * second one using Knuth--Morris--Pratt algorithm. The function should return a boolean.
+ *
+ * Sample Input:
+ * string = "aefoaefcdaefcdaed"
+ * substring = "aefcdaed"
+ *
+ * Sample Output: true
+ */
 public class KnuthMorrisPrattAlgorithm {
+
+    // Time : O(n + m) | space : O(m)
     public static boolean knuthMorrisPrattAlgorithm(String string, String substring) {
         int[] pattern = buildPattern(substring);
         return isMatching(string, substring, pattern);
