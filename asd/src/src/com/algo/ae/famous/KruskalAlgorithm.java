@@ -52,6 +52,8 @@ import java.util.List;
  */
 
 public class KruskalAlgorithm {
+    // Time: O(e * log(e)), space : O(e + v)  -- e is number of edgesin the input edges
+    // and v is the number of vertices
     public int[][][] kruskalsAlgorithm(int[][][] edges) {
         List<List<Integer>> sortedEdges = new ArrayList<>();
         for (int sourceIdx = 0; sourceIdx < edges.length; ++sourceIdx) {

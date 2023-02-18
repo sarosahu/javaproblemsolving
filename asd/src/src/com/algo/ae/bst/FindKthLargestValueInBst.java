@@ -43,6 +43,7 @@ public class FindKthLargestValueInBst {
         }
     }
 
+    // Time: O(h + k) , space: O(h) -- h is height of tree, k is input
     public int findKthLargestValueInBst(BST tree, int k) {
         // Write your code here.
         Stack<BST> stack = new Stack<>();

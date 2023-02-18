@@ -17,6 +17,7 @@ package com.algo.ae.dp;
  * 2 // 1 x 1 + 1 x 5 and 6 x 1
  */
 public class NumberOfWaysToMakeChange {
+    // Time: O(nd), space: O(n)
     public static int numberOfWaysToMakeChange(int n, int[] denoms) {
         int [] ways = new int [n + 1];
         ways[0] = 1;

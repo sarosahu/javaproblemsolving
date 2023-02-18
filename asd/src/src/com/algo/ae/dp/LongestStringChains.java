@@ -38,6 +38,8 @@ public class LongestStringChains {
         }
     }
 
+    // Time: O(n * m^2 + nlog(n)) , space : O(nm) -- n is no of strings and m
+    // is the length of the longest string.
     public static List<String> longestStringChain(List<String> strings) {
         Map<String, StringChain> stringChains = new HashMap<>();
         for (String str : strings) {

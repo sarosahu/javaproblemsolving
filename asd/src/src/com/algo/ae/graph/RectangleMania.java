@@ -32,6 +32,7 @@ import java.util.Set;
  * Sample Output: 6
  */
 public class RectangleMania {
+    // Time: O(n^2), space : O(n) -- where n is the number of coordinates
     public static int rectangleMania(List<Integer[]> coords) {
         Set<String> pointsTable = getPointsTable(coords);
         return getRectangleCount(coords, pointsTable);

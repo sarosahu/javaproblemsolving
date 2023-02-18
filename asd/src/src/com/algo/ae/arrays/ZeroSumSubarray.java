@@ -19,6 +19,7 @@ import java.util.Set;
  * Sample Output: True
  */
 public class ZeroSumSubarray {
+    // Time: O(n), space : O(n)
     public static boolean zeroSumSubarray(int[] nums) {
         Set<Integer> sums = new HashSet<>();
         int currSum = 0;

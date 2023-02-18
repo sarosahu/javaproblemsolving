@@ -48,7 +48,7 @@ package com.algo.ae.dp;
  * ]
  */
 
-// TODO
+// Time : O(w * h) , space : O(w * h)
 public class MaximumSumSubmatrix {
     public int maximumSumSubmatrix(int[][] matrix, int size) {
         // Write your code here.

@@ -30,7 +30,11 @@ import java.util.List;
  *
  * Sample output: [10, [1, 3]] // items [4, 3] and [6, 7]
  */
+
+
 public class KnapsackProblem {
+
+    // Time: O(nc) , space : O(nc) --
     public static List<List<Integer>>
     knapsackProblem(int[][] items, int capacity) {
 

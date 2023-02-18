@@ -24,6 +24,9 @@ import java.util.Arrays;
  * Sample Output: [28, 26]
  */
 public class SmallestDifference {
+
+    // O(nlog(n) + O(mlog(m)) | O(1) space
+    // n and m are length of 2 arrays.
     public static int[] smallestDifference(int[] arrayOne, int[] arrayTwo) {
         Arrays.sort(arrayOne);
         Arrays.sort(arrayTwo);

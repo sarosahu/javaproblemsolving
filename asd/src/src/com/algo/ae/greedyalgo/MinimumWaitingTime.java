@@ -27,6 +27,7 @@ import java.util.Arrays;
  * Sample output: 17
  */
 public class MinimumWaitingTime {
+     // Time: O(nlog(n)), space : O(1) -- n is no of queries
     public static int minimumWaitingTime(int[] queries) {
         if (queries.length <= 1) {
             return 0;

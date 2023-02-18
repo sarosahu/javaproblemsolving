@@ -25,6 +25,7 @@ package com.algo.ae.dp;
  * Sample output: 93 // Buy: 5, Sell: 11; Buy: 3, Sell: 90
  */
 public class MaxProfitWithKTransactions {
+    // Time : O(nk), space : O(nk)
     public static int maxProfitWithKTransactions(int[] prices, int k) {
         if (prices.length == 0) {
             return 0;

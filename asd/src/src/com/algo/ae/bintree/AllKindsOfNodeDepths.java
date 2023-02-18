@@ -28,6 +28,7 @@ import java.util.Stack;
  * Sample output: 26
  */
 public class AllKindsOfNodeDepths {
+    // Time: O(n), space : O(h) -- when balanced tree
     public static int allKindsOfNodeDepths(BinaryTree root) {
         int sumOfAllDepths = 0;
         Stack<BinaryTree> stack = new Stack<>();

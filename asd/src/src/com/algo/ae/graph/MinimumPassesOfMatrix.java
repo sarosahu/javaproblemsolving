@@ -55,6 +55,7 @@ import java.util.*;
  * Sample Output: 3
  */
 public class MinimumPassesOfMatrix {
+    // Time: O(w * h), space : O(w * h) -- w is the width and height of matrix
     public static class Location {
         public int rowPos;
         public int colPos;

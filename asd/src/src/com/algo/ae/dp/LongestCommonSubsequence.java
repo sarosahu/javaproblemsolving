@@ -27,6 +27,8 @@ import java.util.List;
  * ["X", "Y", "Z", "W"]
  */
 public class LongestCommonSubsequence {
+
+    // O(nm), space: O(nm)
     public static List<Character> longestCommonSubsequence(String str1, String str2) {
         // Write your code here.
         int [][] matrix = new int [str1.length() + 1][str2.length() + 1];

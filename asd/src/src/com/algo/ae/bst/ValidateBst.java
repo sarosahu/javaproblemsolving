@@ -19,9 +19,8 @@ import java.util.Queue;
  */
 
 public class ValidateBst {
+    // Recursive way: O(n) time, O(d) space
     public static boolean validateBstR(BST tree) {
-        // Write your code here.
-        // Recursive way
         if (tree == null) {
             return true;
         }
@@ -39,6 +38,7 @@ public class ValidateBst {
                 validateBstHelper(root.right, root.value, maxValue);
     }
 
+    // Recursive way: O(n) time, O(d) space
     public static boolean validateBstL(BST tree) {
         // Write your code here.
         Queue<QueueNode> queue = new LinkedList<>();

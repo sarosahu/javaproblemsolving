@@ -26,6 +26,8 @@ import java.util.Map;
  * Sample Output: [0, 7]
  */
 public class LargestRange {
+
+    // Time : O(n) | Space : O(n)
     public static int[] largestRange(int[] array) {
         // This is a naive (BF) approach, time compelxity
         // is Olog(N) -- due to sorting of array

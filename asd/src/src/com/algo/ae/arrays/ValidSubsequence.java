@@ -16,6 +16,7 @@ import java.util.List;
  * array itself are both valid subsequences of the array.
  */
 public class ValidSubsequence {
+    // Time: O(N), space: O(1)
     public static boolean isValidSubsequence(List<Integer> array, List<Integer> sequence) {
         if (sequence.size() > array.size()) {
             return false;

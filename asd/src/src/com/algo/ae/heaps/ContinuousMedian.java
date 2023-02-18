@@ -38,7 +38,6 @@ public class ContinuousMedian {
         Queue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
 
         public void insert(int number) {
-            // Write your code here.
             if (minHeap.isEmpty()) {
                 minHeap.add(number);
             } else {

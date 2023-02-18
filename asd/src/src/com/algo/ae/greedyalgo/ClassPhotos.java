@@ -36,6 +36,7 @@ import java.util.List;
  * Sample output: true
  */
 public class ClassPhotos {
+    // Time: O(nlog(n)), space : O(1) -- where n is the number of students
     public static boolean classPhotos(
             List<Integer> redShirtHeights,
             List<Integer> blueShirtHeights) {

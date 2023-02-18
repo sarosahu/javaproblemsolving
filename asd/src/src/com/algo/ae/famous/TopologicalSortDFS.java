@@ -59,6 +59,7 @@ public class TopologicalSortDFS {
         }
     }
 
+    // Time : O(j + d), space : O(j + d)
     public static List<Integer> topologicalSort(List<Integer> jobs, List<Integer[]> deps) {
         // Write your code here.
         Graph g = new Graph(jobs);

@@ -25,6 +25,7 @@ import java.util.List;
  * ]
  */
 public class SpiralTraverse {
+    // Time: O(n), space : O(n)
     public static List<Integer> spiralTraverse(int[][] array) {
         if (array.length == 0) {
             return new ArrayList<Integer>();
@@ -63,6 +64,7 @@ public class SpiralTraverse {
         return list;
     }
 
+    // Time: O(n), space : O(n)
     public static List<Integer> spiralTraverse2(int[][] array) {
         if (array.length == 0) {
             return new ArrayList<Integer>();

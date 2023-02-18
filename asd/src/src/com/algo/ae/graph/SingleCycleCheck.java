@@ -24,6 +24,7 @@ import java.util.Arrays;
  * Sample output: true
  */
 public class SingleCycleCheck {
+    // Time: O(n), space : O(1) -- where n is the length of input array
     public static boolean hasSingleCycle(int[] array) {
         int[] count = new int[array.length];
         Arrays.fill(count, 0);

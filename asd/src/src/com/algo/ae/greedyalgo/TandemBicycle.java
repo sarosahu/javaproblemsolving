@@ -38,6 +38,7 @@ import java.util.Arrays;
  * Sample Output: 32
  */
 public class TandemBicycle {
+     // Time: O(nlog(n)), space : O(1) -- where n is no of tandem bicycles
     public int tandemBicycle(int[] redShirtSpeeds, int[] blueShirtSpeeds, boolean fastest) {
         Arrays.sort(redShirtSpeeds);
         Arrays.sort(blueShirtSpeeds);

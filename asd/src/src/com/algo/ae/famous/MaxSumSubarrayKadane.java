@@ -8,6 +8,7 @@ package com.algo.ae.famous;
  * must only contain adjacent numbers.
  */
 public class MaxSumSubarrayKadane {
+    // Time: O(n), space : O(1)
     public int kadanesAlgorithm(int[] arr) {
         int maxEndingHere = arr[0];
         int maxSoFar = arr[0];

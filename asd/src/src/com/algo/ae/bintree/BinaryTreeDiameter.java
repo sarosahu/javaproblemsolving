@@ -35,6 +35,8 @@ public class BinaryTreeDiameter {
         }
     }
 
+    // Time: O(n) , space : O(h) -- when tree is balanced.
+
     public int binaryTreeDiameter(BinaryTree tree) {
         return getTreeInfo(tree).diameter;
     }

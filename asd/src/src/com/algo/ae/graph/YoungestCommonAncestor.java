@@ -54,6 +54,7 @@ import java.util.Set;
  *  Sample Output: node B
  */
 public class YoungestCommonAncestor {
+     // Time: O(d), space : O(1) -- d is depth(height) of the ancestral tree
     static class AncestralTree {
         public char name;
         public AncestralTree ancestor;

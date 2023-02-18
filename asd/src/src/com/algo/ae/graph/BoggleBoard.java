@@ -81,6 +81,7 @@ public class BoggleBoard {
         }
     }
 
+    // Time: O(nm*8^s + ws), space : O(nm + ws)
     public static List<String> boggleBoard(char[][] board, String[] words) {
         Trie trie = new Trie();
         for (String word : words) {

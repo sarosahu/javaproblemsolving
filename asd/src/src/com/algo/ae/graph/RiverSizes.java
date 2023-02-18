@@ -30,6 +30,7 @@ import java.util.List;
  * [1, 2, 2, 2, 5] // The numbers could be ordered differently
  */
 public class RiverSizes {
+    // Time: O(wh), space : O(wh)
     public static List<Integer> riverSizes(int[][] matrix) {
         boolean [][] visited = new boolean[matrix.length][matrix[0].length];
         initialize(visited);

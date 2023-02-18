@@ -48,6 +48,7 @@ public class DiskStacking {
         }
     }
 
+    // Time: O(n^2), O(n) space
     public static List<Integer[]> diskStacking(List<Integer[]> disks) {
         // Write your code here.
         List<Disk> diskList = new ArrayList<>();

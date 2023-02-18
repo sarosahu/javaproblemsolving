@@ -3,6 +3,8 @@ package com.algo.ae.arrays;
 import java.util.HashSet;
 
 public class MinimumAreaRectangle {
+
+    // Time: O(N^2) | Space: O(N)
     public static int minimumAreaRectangle(int[][] points) {
         HashSet<String> pointSet = createPointSet(points);
         int minArea = Integer.MAX_VALUE;

@@ -19,6 +19,7 @@ import java.util.List;
  *
  */
 public class MoveElementToEnd {
+    Time: O(N) | Space: O(1)
     public static List<Integer> moveElementToEnd(List<Integer> array, int toMove) {
         int left = 0, right = array.size() - 1;
         while (left < right) {

@@ -21,6 +21,7 @@ package com.algo.ae.arrays;
  * Sample Output: true
  */
 public class MonotonicArray {
+    // Time: O(N), space : O(1)
     public static boolean isMonotonic(int[] array) {
         boolean increasing = true, decreasing = true;
         for (int i = 0; i < array.length - 1; ++i) {

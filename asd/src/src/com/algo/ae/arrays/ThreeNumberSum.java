@@ -51,6 +51,7 @@ public class ThreeNumberSum {
         return results;
     }
 
+    // Time: O(N^2), space : O(N)
     public static List<Integer[]> threeNumberSumE(int[] array, int targetSum) {
 
         List<Integer[]> list = new ArrayList<Integer[]>();

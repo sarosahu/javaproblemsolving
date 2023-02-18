@@ -37,6 +37,7 @@ import java.util.*;
  * ]
  */
 public class TaskAssignment {
+     // Time: O(nlog(n)), space : O(n) -- n is no of tasks
     public ArrayList<ArrayList<Integer>> taskAssignment(int k, ArrayList<Integer> tasks) {
         ArrayList<ArrayList<Integer>> pairedTasks = new ArrayList<>();
         Map<Integer, List<Integer>> taskDurationToIndices =

@@ -30,6 +30,7 @@ import java.util.List;
  * [110, [10, 20, 30, 50]]
  */
 public class MaxSumIncreasingSubsequence {
+    // Time: O(n^2), space : O(n)
     public static List<List<Integer>> maxSumIncreasingSubsequence(int[] array) {
         // Write your code here.
         int [] maxSumToIndexList = Arrays.copyOf(array, array.length);

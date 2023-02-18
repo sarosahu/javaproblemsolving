@@ -16,6 +16,7 @@ import java.util.Map;
 
 public class LineThroughPoints {
 
+    // Time: O(N^2) | Space: O(N) -- Where N is the number of points
     public static int lineThroughPoints(int [][] points) {
         int n = points.length, maxPoints = 1;
         for (int i = 0; i < n; ++i) {

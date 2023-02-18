@@ -29,6 +29,9 @@ public class BstConstruction {
             this.value = value;
         }
 
+	// Time/space : 
+	// Average: O(log(n)) , space : O(1)
+	// Worst: O(n), space O(1) 
         public BST insert(int value) {
             BST newNode = new BST(value);
             BST curr = this;
@@ -50,6 +53,9 @@ public class BstConstruction {
             return this;
         }
 
+	// Time / space:
+	// Average : O(log(n), space: O(1)
+	// Worst : O(n), space : O(1)
         public boolean contains(int value) {
             BST curr = this;
             while (curr != null) {
@@ -64,6 +70,9 @@ public class BstConstruction {
             return false;
         }
 
+	// Time / space:
+	// Average : O(log(n), space: O(1)
+	// Worst : O(n), space : O(1)
         public BST remove(int value) {
             BST curr = this;
             BST parent = null;

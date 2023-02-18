@@ -62,6 +62,9 @@ public class RightSmallerThan {
             }
         }
     }
+
+    // Time: Average: when the created BST is balanced, then O(nlog(n)) and O(n) space
+    //       Worst: when created BST is like a linked list, then O(n^2), and O(n) space
     public static List<Integer> rightSmallerThan(List<Integer> array) {
         if (array.isEmpty()) {
             return new ArrayList<Integer>();
@@ -76,6 +79,7 @@ public class RightSmallerThan {
         }
         return rightSmallerCounts;
     }
+
     public static void main(String[] args) {
         //int [] a = {8, 5, 11, -1, 3, 4, 2};
         List<Integer> list = Arrays.asList(8, 5, 11, -1, 3, 4, 2);

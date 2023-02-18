@@ -28,6 +28,7 @@ import java.util.List;
  */
 public class MergeOverlappingIntervals {
     public int[][] mergeOverlappingIntervals(int[][] intervals) {
+        // Time: O(nlogn), space : O(n)
         int [][] sortedIntervals = intervals.clone();
         Arrays.sort(sortedIntervals, Comparator.comparingInt(a -> a[0]));
 

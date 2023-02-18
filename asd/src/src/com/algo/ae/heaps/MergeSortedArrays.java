@@ -25,6 +25,8 @@ import java.util.*;
  */
 
 public class MergeSortedArrays {
+    // Time: O(nlog(k)), space : O(n + k) -- n is total no of array elements and 
+    // k is the number of arrays
     public List<Integer> mergeSortedArrays(List<List<Integer>> arrays) {
         Queue<ElementIterator> minHeap =
                 new PriorityQueue<>((a, b) -> a.currValue - b.currValue);

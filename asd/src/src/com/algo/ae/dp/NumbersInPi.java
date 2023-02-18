@@ -22,6 +22,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class NumbersInPi {
+    // Time: O(n^3 + m), space : O(n + m) -- n is no of digits in Pi and 
+    // m is the number of favorite numbers
     public static int numbersInPi(String pi, String[] numbers) {
         int [] dp = new int[pi.length() + 1];
         Arrays.fill(dp, pi.length() + 1);

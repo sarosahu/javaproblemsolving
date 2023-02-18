@@ -20,6 +20,7 @@ package com.algo.ae.dp;
  * Sample output: 3 // 2x1 + 1x5
  */
 public class MinNumberOfCoinsForChange {
+    // Time: O(nd), space : O(n)
     public static int minNumberOfCoinsForChange(int n, int[] denoms) {
         int [] cache = new int[n + 1];
         for (int i = 1; i < n + 1; ++i) {

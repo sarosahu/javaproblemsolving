@@ -35,6 +35,7 @@ import java.util.function.Function;
  *
  */
 public class IterativeInOrderTraversal {
+    // Time : O(n) , space: O(1)
     public static void iterativeInOrderTraversal(
             BinaryTree tree, Function<BinaryTree, Void> callback) {
         // THis is same as solution given.

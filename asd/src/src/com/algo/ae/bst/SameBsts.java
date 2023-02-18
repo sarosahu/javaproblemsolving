@@ -37,9 +37,8 @@ import java.util.List;
  *              2        11    81
  */
 public class SameBsts {
+    // Time: O(n^2), space : O(d) -- n is number of nodes in each array and d is depth of BST
     public static boolean sameBsts(List<Integer> arrayOne, List<Integer> arrayTwo) {
-        // Write your code here.
-        // I referred the solution.
         return isSameBstsHelper(arrayOne, arrayTwo, 0, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 

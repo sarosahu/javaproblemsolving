@@ -37,6 +37,7 @@ public class FindSuccessor {
         }
     }
 
+    // O(h) time , O(1) space
     public BinaryTree findSuccessor(BinaryTree tree, BinaryTree node) {
         // Write your code here.
         BinaryTree successor = null;
@@ -59,6 +60,7 @@ public class FindSuccessor {
         return successor;
     }
 
+    // O(h) time , O(1) space
     public BinaryTree findSuccessor2(BinaryTree tree, BinaryTree node) {
         BinaryTree successor = null;
         if (node.right != null) {

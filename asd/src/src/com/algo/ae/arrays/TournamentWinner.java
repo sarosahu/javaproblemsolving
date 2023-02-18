@@ -42,6 +42,7 @@ import java.util.Map;
  *   Sample Output: "Python"
  */
 public class TournamentWinner {
+    // Time: O(n), space : O(k) where n is the number of competitions and k is number of teams.
     public String tournamentWinner(
             ArrayList<ArrayList<String>> competitions, ArrayList<Integer> results) {
         // Write your code here.

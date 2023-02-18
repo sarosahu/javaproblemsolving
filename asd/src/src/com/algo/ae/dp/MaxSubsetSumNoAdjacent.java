@@ -13,6 +13,7 @@ package com.algo.ae.dp;
  * Sample output: 330 (75 + 120 + 135)
  */
 public class MaxSubsetSumNoAdjacent {
+    // Time: O(n) , space: O(n)
     public static int maxSubsetSumNoAdjacent(int [] array) {
         if (array.length == 0) {
             return 0;
@@ -27,6 +28,7 @@ public class MaxSubsetSumNoAdjacent {
         return maxSums[array.length - 1];
     }
 
+    // Time: O(n) , space: O(1)
     public static int maxSubsetSumNoAdjacentE(int[] array) {
         if (array.length == 0) {
             return 0;

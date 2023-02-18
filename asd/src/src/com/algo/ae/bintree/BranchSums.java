@@ -80,6 +80,7 @@ public class BranchSums {
         }
         return list;
     }
+
     public static List<Integer> branchSumsR(BinaryTree root) {
         // Write your code here.
         ArrayList<Integer> list = new ArrayList<Integer>();

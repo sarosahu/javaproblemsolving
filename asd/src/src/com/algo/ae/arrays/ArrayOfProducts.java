@@ -16,6 +16,7 @@ package com.algo.ae.arrays;
  *
  * Sample Output: [8, 40, 10, 20]
  */
+
 public class ArrayOfProducts {
 
     // Brute Force approach, time: O(N^2)

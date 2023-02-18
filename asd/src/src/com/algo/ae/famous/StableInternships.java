@@ -57,6 +57,7 @@ import java.util.*;
  * ]
  */
 public class StableInternships {
+    // Time: O(n^2), space: O(n^2) -- n is no of interns and teams
     public int[][] stableInternships(int[][] interns, int[][] teams) {
         Map<Integer, Integer> chosenInterns = new HashMap<>();
         Stack<Integer> freeInterns = new Stack<>();

@@ -17,6 +17,7 @@ package com.algo.ae.bintree;
  * nodes can either be BinaryTree nodes themselves or None / null.
  */
 public class FlattenBinaryTree {
+    // Time: O(n), space: O(d) -- n is total no of nodes and d is depth of tree
     public static BinaryTree flattenBinaryTree(BinaryTree root) {
         return flattenBinaryTreeHelper(root).leftMost;
     }

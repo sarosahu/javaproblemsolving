@@ -25,6 +25,7 @@ public class MinHeapConstruction {
             heap = buildHeap(array);
         }
 
+        // Time : O(n), space : O(1)
         public List<Integer> buildHeap(List<Integer> array) {
             // Write your code here.
             int size = array.size();
@@ -35,6 +36,7 @@ public class MinHeapConstruction {
             return array;
         }
 
+        // Time : O(log(n)), space : O(1)
         public void siftDown(int currentIdx, int endIdx, List<Integer> heap) {
             // Write your code here.
             int childOneIndex = currentIdx * 2 + 1;
@@ -57,6 +59,7 @@ public class MinHeapConstruction {
             }
         }
 
+        // Time : O(log(n)), space : O(1)
         public void siftUp(int currentIdx, List<Integer> heap) {
             // Write your code here.
             int parentIndex = (currentIdx - 1) / 2;

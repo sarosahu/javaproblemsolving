@@ -59,6 +59,8 @@ public class RightSiblingTree {
             this.value = value;
         }
     }
+
+    // Time: O(n), space: O(d) -- n and d are total nodes and depth of tree respectively
     public static BinaryTree rightSiblingTree(BinaryTree root) {
         if (root == null) {
             return root;

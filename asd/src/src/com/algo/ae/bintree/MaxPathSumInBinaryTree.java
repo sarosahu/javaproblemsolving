@@ -25,6 +25,7 @@ package com.algo.ae.bintree;
 public class MaxPathSumInBinaryTree {
     static int maxSumPath = Integer.MIN_VALUE;
 
+    // Time: O(n), space: O(log(n))
     public static int maxPathSum(BinaryTree tree) {
         maxPathSumHelper(tree);
         return maxSumPath;

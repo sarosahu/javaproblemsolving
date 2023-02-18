@@ -84,6 +84,7 @@ public class TopologicalSort {
         }
     }
 
+    // Time : O(j + d), space : O(j + d)
     public static List<Integer> topologicalSort(List<Integer> jobs, List<Integer[]> deps) {
         Graph g = new Graph(jobs);
         for (int i = 0; i < deps.size(); ++i) {
