@@ -2,8 +2,30 @@ package com.algo.ae.recursion;
 
 import java.util.Arrays;
 
+/**
+ * Interweaving Strings
+ *
+ * Write a function that takes in three strings and returns a boolean representing whether
+ * the third string can be formed by interweaving the first two strings.
+ *
+ * To interweave strings means to merge them by alternating their letters without any
+ * specific pattern. For instance, the strings "abc" and "123" can be interwoven as
+ * "a1b2c3", as "abc123", and as "ab1c23" (this list is non-exhaustive).
+ *
+ * Letters within a string must maintain their relative ordering in the interwoven string.
+ *
+ * Sample Input:
+ *
+ * one = "algoexpert"
+ * two = "your-dream-job"
+ * three = "your-algodream-expertjob"
+ *
+ * Sample Output: true
+ */
 public class InterweavingStrings {
 
+    // Time: O(nm), space : O(nm) -- n is the length of the first string
+    // and m is the length of the second string.
     public static boolean interweavingStringsL(String one, String two, String three) {
         int oneLen = one.length();
         int twoLen = two.length();
@@ -38,7 +60,10 @@ public class InterweavingStrings {
         }
         return matrix[matrix.length - 1][matrix[0].length - 1];
     }
-    public static boolean interweavingStrings(String one, String two, String three) {
+
+    // Time: O(2 ^ (n + m) , space : O(n + m) -- where n is the length of first string
+    // and m is the length of the second string
+    public static boolean interweavingStringsR(String one, String two, String three) {
         if (three.length() != one.length() + two.length()) {
             return false;
         }

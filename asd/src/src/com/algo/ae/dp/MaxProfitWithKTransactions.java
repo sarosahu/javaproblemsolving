@@ -41,6 +41,35 @@ public class MaxProfitWithKTransactions {
         return profits[k][prices.length - 1];
     }
 
+    // Time : O(nk), space : O(n)
+    public static int maxProfitWithKTransactionsE(int[] prices, int k) {
+        if (prices.length == 0) {
+            return 0;
+        }
+        int[] evenProfits = new int[prices.length];
+        int[] oddProfits = new int[prices.length];
+
+        int[] currProfits;
+        int[] prevProfits;
+
+        for (int t = 1; t <= k; ++t) {
+            int maxSoFar = Integer.MIN_VALUE;
+            if (t % 2 == 1) {
+                currProfits = oddProfits;
+                prevProfits = evenProfits;
+            } else {
+                currProfits = evenProfits;
+                prevProfits = oddProfits;
+            }
+
+            for (int d = 1; d < prices.length; ++d) {
+                maxSoFar = Math.max(maxSoFar, prevProfits[d - 1] - prices[d - 1]);
+                currProfits[d] = Math.max(currProfits[d - 1], maxSoFar + prices[d]);
+            }
+        }
+        return k % 2 == 0 ?
+                evenProfits[prices.length - 1] : oddProfits[prices.length - 1];
+    }
     public static void main(String[] args) {
         int[] prices = {5, 11, 3, 50, 60, 90};
         int maxProfit = maxProfitWithKTransactions(prices, 2);

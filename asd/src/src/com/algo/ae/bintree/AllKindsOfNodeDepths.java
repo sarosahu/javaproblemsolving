@@ -53,6 +53,7 @@ public class AllKindsOfNodeDepths {
         return depth + nodeDepths(node.left, depth + 1) + nodeDepths(node.right, depth + 1);
     }
 
+    // Time: O(n), space : O(h) -- when balanced tree
     public static int allKindsOfNodeDepthsE(BinaryTree root) {
         return getTreeInfo(root).sumOfAllDepths;
     }
@@ -77,6 +78,24 @@ public class AllKindsOfNodeDepths {
         return new TreeInfo(numNodesInTree, sumOfDepthsAtThisNode, sumOfAllDepthsAtThisNode);
     }
 
+    // Time: O(n), space : O(h) -- when balanced tree
+    public static int allKindsOfNodeDepthsE2(BinaryTree root) {
+        return allKindsOfNodeDepthsHelper(root, 0, 0);
+    }
+
+    public static int allKindsOfNodeDepthsHelper(BinaryTree node,
+                                                 int depthSum,
+                                                 int depth)
+    {
+        if (node == null) {
+            return 0;
+        }
+        depthSum += depth;
+
+        return depthSum
+                + allKindsOfNodeDepthsHelper(node.left, depthSum, depth + 1)
+                + allKindsOfNodeDepthsHelper(node.right, depthSum, depth + 1);
+    }
     public static class TreeInfo {
         public int numNodes;
         public int sumOfDepths;

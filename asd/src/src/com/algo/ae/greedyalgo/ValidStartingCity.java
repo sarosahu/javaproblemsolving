@@ -37,4 +37,50 @@ package com.algo.ae.greedyalgo;
  * Sample output: 4
  */
 public class ValidStartingCity {
+    // BF method, time: O(N^2)
+    public int validStartingCityBF(int[] distances, int[] fuel, int mpg) {
+        int numCities = distances.length;
+
+        for (int startCityIdx = 0; startCityIdx < numCities; ++startCityIdx) {
+            int milesRemaining = 0;
+
+            for (int currCityIdx = startCityIdx;
+                 currCityIdx < startCityIdx + numCities; ++currCityIdx) {
+                if (milesRemaining < 0) {
+                    continue;
+                }
+
+                int currCityIdxRotated = currCityIdx % numCities;
+                int fuelFromCurrCity = fuel[currCityIdxRotated];
+                int distanceToNextCity = distances[currCityIdxRotated];
+                milesRemaining += fuelFromCurrCity * mpg - distanceToNextCity;
+            }
+            if (milesRemaining >= 0) {
+                return startCityIdx;
+            }
+        }
+
+        return -1;
+    }
+
+    // Greedy approach, Time: O(N) , Space : O(1)
+    public int validStartingCity(int[] distances, int[] fuel, int mpg) {
+        int numCities = distances.length;
+        int milesRemaining = 0;
+
+        int indexOfStartCity = 0;
+        int milesRemainingAtStartCity = 0;
+
+        for (int cityIdx = 1; cityIdx < numCities; ++cityIdx) {
+            int distanceFromPrevCity = distances[cityIdx - 1];
+            int fuelFromPrevCity = fuel[cityIdx - 1];
+            milesRemaining += fuelFromPrevCity * mpg - distanceFromPrevCity;
+
+            if (milesRemaining < milesRemainingAtStartCity) {
+                milesRemainingAtStartCity = milesRemaining;
+                indexOfStartCity = cityIdx;
+            }
+        }
+        return indexOfStartCity;
+    }
 }
