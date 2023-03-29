@@ -14,35 +14,30 @@ public class LongestSubstringWithoutDuplication {
 
     // Time: O(N), Space : O(N)
     public static String longestSubstringWithoutDuplication(String str) {
-        // Sliding window approach
-        String longSubstr = "";
+        Map<Character, Integer> charToCount = new HashMap<>();
         int left = 0, right = 0;
-        Map<Character, Integer> hm = new HashMap<>();
+        int maxLen = 0;
+        String substr = "";
+
         while (right < str.length()) {
-            char currChar = str.charAt(right);
-            int rightCount = hm.getOrDefault(currChar, 0);
-            if (rightCount > 0) {
-                // currChar already there in hashMap
-                String currLongSubstr = str.substring(left, right);
-                if (currLongSubstr.length() > longSubstr.length()) {
-                    longSubstr = currLongSubstr;
-                }
-                // Remove all the characters from left till last visited character with value currChar
-                while (str.charAt(left) != currChar) {
-                    hm.remove(str.charAt(left));
-                    ++left;
-                }
-                left += 1;
-            } else {
-                hm.put(currChar, 1);
+            char r = str.charAt(right);
+            int rCount = charToCount.getOrDefault(r, 0);
+            charToCount.put(r, rCount + 1);
+
+            while (charToCount.get(r) > 1) {
+                char l = str.charAt(left);
+                int lCount = charToCount.get(l);
+                charToCount.put(l, lCount - 1);
+                ++left;
+            }
+            //maxLen = Math.max(maxLen, right - left + 1);
+            if (right - left + 1 > maxLen) {
+                maxLen = right - left + 1;
+                substr = str.substring(left, right + 1);
             }
             ++right;
         }
-        String lastLongSubstr = str.substring(left, right);
-        if (lastLongSubstr.length() > longSubstr.length()) {
-            longSubstr = lastLongSubstr;
-        }
-        return longSubstr;
+        return substr;
     }
 
     // Time: O(N), Space : O(min(n,a)) -- what is a ?
@@ -67,5 +62,14 @@ public class LongestSubstringWithoutDuplication {
             longestRange[1] = str.length();
         }
         return str.substring(longestRange[0], longestRange[1]);
+    }
+
+    public static void main(String[] args) {
+        String s = "abcabcbb";
+        String substr = longestSubstringWithoutDuplication(s);
+        System.out.println("Substring : " + substr);
+
+        substr = longestSubstringWithoutDuplication2(s);
+        System.out.println("Substring2 : " + substr);
     }
 }

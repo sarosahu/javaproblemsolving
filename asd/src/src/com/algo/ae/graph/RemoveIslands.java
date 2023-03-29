@@ -9,7 +9,7 @@ import java.util.Stack;
  *
  * You're given 2-dimensional array (a matrix) of potentially unequal height
  * and width containing only 0s and 1s. The matrix represents a 2-toned image,
- * where each 1 represents blank and each 0 represents white. An island is
+ * where each 1 represents black and each 0 represents white. An island is
  * defined as any number of 1s that are horizontally or vertically adjacent
  * (but not diagonally adjacent) and that don't touch the border of the
  * image. In other words, a group of horizontally or vertically adjacent 1s
