@@ -30,6 +30,14 @@ package com.algo.lc.arraysandstrings;
  * -1000 <= matrix[i][j] <= 1000
  */
 public class RotateImage {
+    /**
+     * Complexity Analysis
+     *
+     * Let M be the number of cells in the matrix.
+     *
+     * Time complexity : O(M), as each cell is getting read once and written once.
+     * Space complexity : O(1) because we do not use any other additional data structures.
+     */
     public static void rotate(int[][] matrix) {
         int n = matrix.length;
         for (int i = 0; i < n/2; ++i) {
@@ -43,6 +51,48 @@ public class RotateImage {
         }
     }
 
+    /**
+     * Let M be the number of cells in the grid.
+     *
+     * Time complexity : O(M). We perform two steps; transposing the matrix, and then reversing each row.
+     * Transposing the matrix has a cost of O(M) because we're moving the value of each cell once.
+     * Reversing each row also has a cost of O(M), because again we're moving the value of each cell once.
+     *
+     * Space complexity : O(1) because we do not use any other additional data structures.
+     */
+    public static void rotate2(int[][] matrix) {
+        transpose(matrix);
+        reflect(matrix);
+    }
+
+    public static void transpose(int[][] matrix) {
+        int n = matrix.length;
+        for (int i = 0; i < n; ++i) {
+            for (int j = i + 1; j < n; ++j) {
+                int tmp = matrix[j][i];
+                matrix[j][i] = matrix[i][j];
+                matrix[i][j] = tmp;
+            }
+        }
+    }
+
+    public static void reflect(int[][] matrix) {
+        int n = matrix.length;
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n/2; ++j) {
+                int tmp = matrix[i][j];
+                matrix[i][j] = matrix[i][n - 1 - j];
+                matrix[i][n - 1 - j] = tmp;
+            }
+        }
+    }
+
+    public static void printTwoDArray(int[][] matrix) {
+        for (int i = 0; i < matrix.length; ++i) {
+            printOneDArray(matrix[i]);
+        }
+        System.out.println();
+    }
     public static void printOneDArray(int[] arr) {
         for (int i = 0; i < arr.length; ++i) {
             System.out.printf("%d, ", arr[i]);
@@ -56,9 +106,15 @@ public class RotateImage {
                 {4, 5, 6},
                 {7, 8, 9}
         };
+        System.out.println("Original matrix : ");
+        printTwoDArray(matrix);
+
         rotate(matrix);
-        for (int i = 0; i < matrix.length; ++i) {
-            printOneDArray(matrix[i]);
-        }
+        System.out.println("After rotating matrix with rotate(): ");
+        printTwoDArray(matrix);
+
+        rotate2(matrix);
+        System.out.println("After rotating matrix once again with rotate2(): ");
+        printTwoDArray(matrix);
     }
 }
