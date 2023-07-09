@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Queue;
 
 public class Graph {
-    private int numVertices;
-    private List<Node> nodes;
+    private final int numVertices;
+    private final List<Node> nodes;
 
     public Graph(int numVertices) {
         this.numVertices = numVertices;
