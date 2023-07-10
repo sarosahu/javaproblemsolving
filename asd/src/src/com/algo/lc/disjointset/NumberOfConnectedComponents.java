@@ -160,13 +160,13 @@ public class NumberOfConnectedComponents {
                 {2, 0},
                 {2, 4}
         };
-        /*int count = countComponentsDfs(5, edges);
+        int count = countComponentsDfs(5, edges);
         System.out.println("Number of connected components : " + count);
 
         count = countComponentsBfs(5, edges);
-        System.out.println("Number of connected components : " + count);*/
+        System.out.println("Number of connected components : " + count);
 
-        int count = countComponentsDS(5, edges);
+        count = countComponentsDS(5, edges);
         System.out.println("Number of connected components : " + count);
     }
 }
