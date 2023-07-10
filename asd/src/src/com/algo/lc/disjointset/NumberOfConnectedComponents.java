@@ -41,6 +41,48 @@ import java.util.Set;
  * There are no repeated edges.
  */
 public class NumberOfConnectedComponents {
+    static class UnionFind {
+        private int[] parent;
+        private int[] rank;
+
+        public UnionFind(int n) {
+            parent = new int[n];
+            rank = new int[n];
+            for (int i = 0; i < n; ++i) {
+                parent[i] = i;
+                rank[i] = 1;
+            }
+        }
+
+        public int find(int node) {
+            if (node == parent[node]) {
+                return parent[node];
+            }
+            parent[node] = find(parent[node]);
+            return parent[node];
+        }
+
+        public void union(int a, int b) {
+            int rootA = find(a);
+            int rootB = find(b);
+            if (rootA == rootB) {
+                return;
+            }
+            if (rank[rootA] < rank[rootB]) {
+                parent[rootA] = rootB;
+            } else if (rank[rootB] < rank[rootA]) {
+                parent[rootB] = rootA;
+            } else {
+                parent[rootB] = rootA;
+                rank[rootA] += 1;
+            }
+        }
+
+        public boolean isConnected(int a, int b) {
+            return find(a) == find(b);
+        }
+    }
+
     public static int countComponentsDfs(int n, int[][] edges) {
         Set<Integer> seen = new HashSet<>();
         Graph graph = new Graph(n, false);
@@ -97,5 +139,34 @@ public class NumberOfConnectedComponents {
         return nc;
     }
 
+    public static int countComponentsDS(int n, int[][] edges) {
+        UnionFind uf = new UnionFind(n);
+        int nc = n;
+        for (int [] edge : edges) {
+            int node1 = edge[0];
+            int node2 = edge[1];
+            if (!uf.isConnected(node1, node2)) {
+                uf.union(node1, node2);
+                --nc;
+            }
+        }
+        return nc;
+    }
 
+    public static void main(String[] args) {
+        int[][] edges = {
+                {0, 1},
+                {2, 1},
+                {2, 0},
+                {2, 4}
+        };
+        /*int count = countComponentsDfs(5, edges);
+        System.out.println("Number of connected components : " + count);
+
+        count = countComponentsBfs(5, edges);
+        System.out.println("Number of connected components : " + count);*/
+
+        int count = countComponentsDS(5, edges);
+        System.out.println("Number of connected components : " + count);
+    }
 }
