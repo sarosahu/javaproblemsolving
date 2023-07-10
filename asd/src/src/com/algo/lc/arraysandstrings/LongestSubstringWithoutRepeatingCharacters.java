@@ -43,7 +43,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
 
         for (int i = 0; i < n; ++i) {
             for (int j = i; j < n; ++j) {
-                if (checkRepetition(str, i, j)) {
+                if (hasNonRepeatingCharacters(str, i, j)) {
                     result = Math.max(result, j - i + 1);
                 }
             }
@@ -53,7 +53,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
     }
 
     private static boolean
-    checkRepetition(String str, int start, int end) {
+    hasNonRepeatingCharacters(String str, int start, int end) {
         Set<Character> chars = new HashSet<>();
         for (int i = start; i <= end; ++i) {
             char currChar = str.charAt(i);
@@ -65,7 +65,8 @@ public class LongestSubstringWithoutRepeatingCharacters {
         return true;
     }
 
-    // Time : O(2n) -> O(n)
+    // Time : O(2n) -> O(n), space: O(min(m, n))
+    // m : size of character, n is length of string
     public static int
     lengthOfLongestSubstringE1(String str) {
         Map<Character, Integer> chars = new HashMap<>();
@@ -112,6 +113,32 @@ public class LongestSubstringWithoutRepeatingCharacters {
         return res;
     }
 
+    public static int
+    lengthOfLongestSubstringE3(String s) {
+        if (s.length() == 0 || s.length() == 1) {
+            return s.length();
+        }
+        Integer[] charIndexes = new Integer[128];
+        int left = 0;
+        int right = 0;
+
+        int res = 0;
+        while (right < s.length()) {
+            char r = s.charAt(right);
+            Integer index = charIndexes[r];
+            if (index != null) {
+                int idx = index.intValue();
+                if (idx >= left && idx < right) {
+                    left = idx + 1;
+                }
+            }
+            res = Math.max(res, right - left + 1);
+            charIndexes[r] = right;
+            ++right;
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         String str = "abcabcbb";
 
@@ -125,6 +152,10 @@ public class LongestSubstringWithoutRepeatingCharacters {
 
         System.out.println("More efficient method:");
         maxLen = lengthOfLongestSubstringE2(str);
+        System.out.println("Length of longest substring : " + maxLen);
+
+        System.out.println("One more efficient method:");
+        maxLen = lengthOfLongestSubstringE3(str);
         System.out.println("Length of longest substring : " + maxLen);
     }
 }
