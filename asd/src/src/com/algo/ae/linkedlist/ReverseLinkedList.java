@@ -59,4 +59,31 @@ public class ReverseLinkedList {
             this.value = value;
         }
     }
+
+    public static LinkedList reverseLinkedListR2(LinkedList head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        LinkedList newHead = reverseLinkedListR2(head.next);
+        head.next.next = head;
+        head.next = null;
+
+        return newHead;
+    }
+
+    public static void main(String[] args) {
+        LinkedList node = new LinkedList(1);
+        node.next = new LinkedList(2);
+        node.next.next = new LinkedList(3);
+        node.next.next.next = new LinkedList(4);
+        node.next.next.next.next = new LinkedList(5);
+
+        LinkedList newHead = reverseLinkedListL(node);
+        LinkedList p = newHead;
+        while (p != null) {
+            System.out.print(p.value + "-->");
+            p = p.next;
+        }
+        System.out.print("NULL");
+    }
 }
