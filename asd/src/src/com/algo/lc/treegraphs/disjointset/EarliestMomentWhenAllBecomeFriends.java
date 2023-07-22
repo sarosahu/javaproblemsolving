@@ -1,4 +1,4 @@
-package com.algo.lc.disjointset;
+package com.algo.lc.treegraphs.disjointset;
 
 import java.util.Arrays;
 import java.util.Comparator;

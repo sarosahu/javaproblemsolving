@@ -80,6 +80,29 @@ public class PascalTriangle {
         return array;
     }
 
+    /**
+     * Approach 4: Math! (specifically, Combinatorics)
+     * (Binomial coefficient)
+     * 
+     * Complexity Analysis
+     *
+     * Time complexity : O(k). Each term is calculated once, in constant time.
+     *
+     * Space complexity : O(k). No extra space required other than that required to hold the output.
+     */
+    public List<Integer> getRow2(int n) {
+        List<Integer> row = new ArrayList<>() {
+            {
+                add(1);
+            }
+        };
+
+        for (int k = 1; k <= n; ++k) {
+            row.add((int) ((row.get(row.size() - 1) * (long) (n - k + 1)) / k));
+        }
+        return row;
+    }
+
     public static void main(String[] args) {
         PascalTriangle obj = new PascalTriangle();
         List<Integer> result = obj.getRow(12);
@@ -89,6 +112,12 @@ public class PascalTriangle {
         System.out.println();
         List<Integer> result2 = obj.getRowi(12);
         for (int i : result2) {
+            System.out.print(i + ",");
+        }
+        System.out.println();
+
+        List<Integer> result3 = obj.getRow2(12);
+        for (int i : result3) {
             System.out.print(i + ",");
         }
         System.out.println();

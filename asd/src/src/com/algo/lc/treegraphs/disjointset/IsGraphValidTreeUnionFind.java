@@ -1,4 +1,4 @@
-package com.algo.lc.disjointset;
+package com.algo.lc.treegraphs.disjointset;
 
 /**
  * This is the same problem as in IsGraphValidTree.java
