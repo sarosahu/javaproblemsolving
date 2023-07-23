@@ -90,6 +90,39 @@ public class SmallestStringWithSwaps {
             return find(u) == find(v);
         }
     }
+
+    /**
+     * Complexity Analysis
+     *
+     * Time complexity: O(E+VlogV)
+     *
+     * Building the adjacency list will take O(E) operations, as we iterate over the list of pairs once,
+     * and inserting an element into the adjacency list takes O(1) time.
+     *
+     * During the DFS traversal, each vertex will only be visited once. This is because we mark each
+     * vertex as visited as soon as we see it, and then we only visit vertices that are not marked as
+     * visited. When we iterate over the edge list of each vertex, we look at each edge once. This has
+     * a total cost of O(V+E).
+     *
+     * Additionally, we also sort the list indices and characters for each component. In the worst case,
+     * all of the vertices in the graph belong to the same component. In that case, sorting two lists of
+     * V elements will take O(VlogV) time. Hence the total time complexity is equal to O(E+VlogV).
+     *
+     * Space complexity: O(E+V)
+     *
+     * Building the adjacency list will take O(E) space. To track the visited vertices, an array visited
+     * of size O(V) is required. In the worst case, indices and characters can take O(V) space. Also, the
+     * run-time stack for DFS will use O(V) space i.e., one active function call for each vertex.
+     *
+     * Additional space is used for sorting the lists indices and characters. The space complexity of the
+     * sorting algorithm is language-specific. For instance, in Java, the Arrays.sort() for primitives is
+     * implemented as a variant of quicksort algorithm whose space complexity is O(logV). In C++ sort()
+     * function provided by STL is a hybrid of Quick Sort, Heap Sort, and Insertion Sort and has a
+     * worst-case space complexity of O(logV). Thus, using the inbuilt sort() function might add up to
+     * O(logV) to space complexity.
+     *
+     * The total space required is (E+V+logV) and hence, the space complexity is equal to O(E+V).
+     */
     public String smallestStringWithSwaps(String s, List<List<Integer>> pairs) {
         boolean[] visited = new boolean[s.length()];
         // Build the adjacency list.
