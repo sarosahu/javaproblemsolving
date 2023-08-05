@@ -63,4 +63,9 @@ public class MergeSort {
             mainArray[k++] = auxArray[j++];
         }
     }
+
+    public static void main(String[] args) {
+        int [] arr = new int[] {5, 2, 3, 1};
+        int [] sortedArray = mergeSort(arr);
+    }
 }
