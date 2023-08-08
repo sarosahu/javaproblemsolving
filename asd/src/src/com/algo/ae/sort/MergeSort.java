@@ -34,6 +34,7 @@ public class MergeSort {
         int midIdx = (startIdx + endIdx) / 2;
         mergeSort(auxArray, startIdx, midIdx, mainArray);
         mergeSort(auxArray, midIdx + 1, endIdx, mainArray);
+
         doMerge(mainArray, startIdx, midIdx, endIdx, auxArray);
     }
 
@@ -66,6 +67,7 @@ public class MergeSort {
 
     public static void main(String[] args) {
         int [] arr = new int[] {5, 2, 3, 1};
+        //int [] arr = new int[] {5, 1, 4, 3, 2};
         int [] sortedArray = mergeSort(arr);
     }
 }
