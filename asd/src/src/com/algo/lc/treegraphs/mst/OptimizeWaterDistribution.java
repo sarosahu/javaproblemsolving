@@ -67,6 +67,19 @@ public class OptimizeWaterDistribution {
         }
     }
 
+    /**
+     *
+     * @param n
+     * @param wells
+     * @param pipes
+     * @return : Minimum cost
+     * Note: The approach here is to use Prim's algorithm.
+     * Let N be the number of houses, and M be the number of pipes from the input.
+     *
+     * Time Complexity: O((N+M)⋅log(N+M))
+     *
+     * Space Complexity: O(N+M)
+     */
     public static int minCostToSupplyWater(int n, int[] wells, int[][] pipes) {
         // Min Heap to maintain the order of edges to be visited.
         Queue<Edge> edgesHeap =
