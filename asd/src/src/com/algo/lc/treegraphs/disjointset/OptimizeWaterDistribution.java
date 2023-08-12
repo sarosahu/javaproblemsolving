@@ -1,8 +1,6 @@
 package com.algo.lc.treegraphs.disjointset;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class OptimizeWaterDistribution {
     static class UnionFind {
@@ -80,11 +78,40 @@ public class OptimizeWaterDistribution {
 
         // Sort the edges based on their cost
         Collections.sort(sortedEdges, (a, b) -> a[2] - b[2]);
+        //Collections.sort(sortedEdges, Comparator.comparingInt(a -> a[2]));
 
         // Iterate through the sorted edges using UnionFind
         UnionFind uf = new UnionFind(n + 1);
         int totalCost = 0;
         for (int [] edge : sortedEdges) {
+            int house1 = edge[0];
+            int house2 = edge[1];
+            int cost = edge[2];
+            // Determine if we should add the new edge to the final MST
+            if (uf.union(house1, house2)) {
+                totalCost += cost;
+            }
+        }
+        return totalCost;
+    }
+
+    // Using minHeap approach.
+    // Time complexity and space complexity remains same as above approach(sorting List)
+    public static int minCostToSupplyWater2(int n, int[] wells, int[][] pipes) {
+        Queue<int[]> edgeMinHeap = new PriorityQueue<>(wells.length + pipes.length, (a, b) -> a[2] - b[2]);
+        // Add virtual vertex (index 0) along with new edges.
+        for (int i = 0; i < wells.length; ++i) {
+            edgeMinHeap.add(new int[] {0, i + 1, wells[i]});
+        }
+
+        // Add the existing edges.
+        edgeMinHeap.addAll(Arrays.asList(pipes));
+
+        // Iterate through the sorted edges using UnionFind
+        UnionFind uf = new UnionFind(n + 1);
+        int totalCost = 0;
+        while (edgeMinHeap.size() > 0) {
+            int [] edge = edgeMinHeap.poll();
             int house1 = edge[0];
             int house2 = edge[1];
             int cost = edge[2];
@@ -104,6 +131,9 @@ public class OptimizeWaterDistribution {
                 {2, 3, 1}
         };
         int minCost = minCostToSupplyWater(n, wells, pipes);
+        System.out.println("Minimum cost : " + minCost);
+
+        minCost = minCostToSupplyWater(n, wells, pipes);
         System.out.println("Minimum cost : " + minCost);
     }
 }
