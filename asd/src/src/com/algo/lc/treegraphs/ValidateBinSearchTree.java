@@ -33,7 +33,7 @@ public class ValidateBinSearchTree {
     Deque<Integer> upperLimits = new LinkedList<>();
     Deque<Integer> lowerLimits = new LinkedList<>();
 
-    Integer prev = null;
+    //Integer prev = null;
 
     // { Approach 1 : Recursive
     /**
@@ -85,10 +85,10 @@ public class ValidateBinSearchTree {
             }
             //Integer val = curr.val;
 
-            if (low != null && curr.val <= low.intValue()) {
+            if (low != null && curr.val <= low) {
                 return false;
             }
-            if (high != null && curr.val >= high.intValue()) {
+            if (high != null && curr.val >= high) {
                 return false;
             }
             update(curr.right, curr.val, high);
@@ -145,21 +145,22 @@ public class ValidateBinSearchTree {
      * Space complexity : O(N) to keep stack.
      */
     public boolean isValidBSTInOrderTraversalR(TreeNode root) {
-        return inorderR(root);
+        Integer prev = null;
+        return inorderR(root, prev);
     }
 
-    private boolean inorderR(TreeNode curr) {
+    private boolean inorderR(TreeNode curr, Integer prev) {
         if (curr == null) {
             return true;
         }
-        if (!inorderR(curr.left)) {
+        if (!inorderR(curr.left, prev)) {
             return false;
         }
-        if (prev != null && curr.val <= prev.intValue()) {
+        if (prev != null && curr.val <= prev) {
             return false;
         }
         prev = curr.val;
-        return inorderR(curr.right);
+        return inorderR(curr.right, prev);
     }
     // isValidBSTInOrderTraversalR >>>> Done.
 
