@@ -126,7 +126,7 @@ public class LongestCommonSubsequence {
     /**
      * Complexity Analysis
      *
-     * Let MMM be the length of the first word, and NNN be the length of the second word.
+     * Let M be the length of the first word, and N be the length of the second word.
      *
      * Time complexity : O(M⋅N).
      *
@@ -135,7 +135,7 @@ public class LongestCommonSubsequence {
      * Space complexity : O(min(M,N)).
      *
      * We've reduced the auxiliary space required so that we only use two 1D arrays at a time;
-     * each the length of the shortest input word. Seeing as the 222 is a constant, we drop it,
+     * each the length of the shortest input word. Seeing as the 2 is a constant, we drop it,
      * leaving us with the minimum length out of the two words.
      */
     public int longestCommonSubsequenceSpaceOptimized(String text1, String text2) {
