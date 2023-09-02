@@ -63,7 +63,7 @@ public class NonAttackingQueens {
         return validPlacements;
     }
 
-    public boolean isNonAttackingPlacement(int row,
+    private boolean isNonAttackingPlacement(int row,
                                            int col,
                                            int[] columnPlacements)
     {
@@ -79,5 +79,10 @@ public class NonAttackingQueens {
         return true;
     }
 
+    public static void main(String[] args) {
+        NonAttackingQueens obj = new NonAttackingQueens();
+        int numPlacements = obj.nonAttackingQueens(4);
+        System.out.println("Number of placements for non attacking queens : " + numPlacements);
+    }
 
 }
