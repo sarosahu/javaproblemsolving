@@ -1,5 +1,8 @@
 package com.algo.ae.recursion;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Non-Attacking Queens
  *
@@ -32,6 +35,8 @@ package com.algo.ae.recursion;
  * Sample output: 2
  */
 public class NonAttackingQueens {
+
+    private int size;
     // {
     // TODO: Also check the solution to Eight queens problem from CTCI book
     // }
@@ -79,9 +84,53 @@ public class NonAttackingQueens {
         return true;
     }
 
+    public int nonAttackingQueens2(int n) {
+        // Each index of `columnPlacements` represents a row of the chessboard,
+        // and the value at each index is the column (on the relevant row)
+        // where a queen is currently placed.
+        this.size = n;
+        //int[] columnPlacements = new int[n];
+        return backtrack(0, new HashSet<>(), new HashSet<>(), new HashSet<>());
+    }
+
+    private int backtrack(int row, Set<Integer> diagonals, Set<Integer> antiDiagonals, Set<Integer> cols) {
+        // Base case - N queens have been placed
+        if (row == size) {
+            return 1;
+        }
+
+        int solutions = 0;
+        for (int col = 0; col < size; col++) {
+            int currDiagonal = row - col;
+            int currAntiDiagonal = row + col;
+            // If the queen is not placeable
+            if (cols.contains(col) || diagonals.contains(currDiagonal) || antiDiagonals.contains(currAntiDiagonal)) {
+                continue;
+            }
+
+            // "Add" the queen to the board
+            cols.add(col);
+            diagonals.add(currDiagonal);
+            antiDiagonals.add(currAntiDiagonal);
+
+            // Move on to the next row with the updated board state
+            solutions += backtrack(row + 1, diagonals, antiDiagonals, cols);
+
+            // "Remove" the queen from the board since we have already
+            // explored all valid paths using the above function call
+            cols.remove(col);
+            diagonals.remove(currDiagonal);
+            antiDiagonals.remove(currAntiDiagonal);
+        }
+
+        return solutions;
+    }
     public static void main(String[] args) {
         NonAttackingQueens obj = new NonAttackingQueens();
         int numPlacements = obj.nonAttackingQueens(4);
+        System.out.println("Number of placements for non attacking queens : " + numPlacements);
+
+        numPlacements = obj.nonAttackingQueens2(4);
         System.out.println("Number of placements for non attacking queens : " + numPlacements);
     }
 
