@@ -50,6 +50,27 @@ public class AllPathsFromSourceLeadsToDestination {
         }
     }
 
+    /**
+     *
+     * @param n
+     * @param edges
+     * @param source
+     * @param destination
+     * @return
+     *
+     * Complexity Analysis
+     *
+     * Time Complexity: Typically for an entire DFS over an input graph, it takes O(V+E) where V
+     * represents the number of vertices in the graph and likewise, EEE represents the number of
+     * edges in the graph. In the worst case EEE can be O(V^2) in case each vertex is connected to
+     * every other vertex in the graph. However even in the worst case, we will end up discovering
+     * a cycle very early on and prune the recursion tree. If we were to traverse the entire graph,
+     * then the complexity would be O(V^2)as the O(E) part would dominate. However, due to pruning
+     * and backtracking in case of cycle detection, we end up with an overall time complexity of O(V).
+     * 
+     * Space Complexity: O(V+E) where O(E) is occupied by the adjacency list and O(V) is occupied by
+     * the recursion stack and the node states.
+     */
     public boolean leadsToDestination(int n, int[][] edges, int source, int destination) {
         Graph graph = new Graph(n);
 
