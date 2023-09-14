@@ -110,10 +110,18 @@ public class SolveSudoku2 {
             ++i;
         }
 
+        System.out.println("Unsolved sudoku :");
+        for (List<Integer> row : board) {
+            for (int d : row) {
+                System.out.printf("%d, ", d);
+            }
+            System.out.println();
+        }
         SolveSudoku2 obj = new SolveSudoku2();
         obj.solveSudoku(board);
 
-        System.out.println("Solved sudoku");
+        System.out.println();
+        System.out.println("Solved sudoku :");
         for (List<Integer> row : board) {
             for (int d : row) {
                 System.out.printf("%d, ", d);
