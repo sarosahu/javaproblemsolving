@@ -31,6 +31,7 @@ public class GenerateParentheses {
      * @param n
      * @return List of valid parentheses in string
      *
+     * Brute Force approach:
      * Complexity Analysis
      * Time complexity: O(n * 2^2n)
      * We are generating all possible strings of length 2n. At each character, we have two choices:
@@ -82,9 +83,56 @@ public class GenerateParentheses {
         return leftCount == 0;
     }
 
+    /**
+     *
+     * @param n
+     * @return List of valid parentheses in string
+     *
+     * Time complexity: O({4^n}/{sqrt{n}})
+     * We only track the valid prefixes during the backtracking procedure. As explained
+     * in the approach 1 time complexity analysis, the total number of valid parentheses
+     * strings is O({4^n}/{n * sqrt{n}})
+     * When considering each valid string, it is important to note that we use a mutable instance
+     * (StringBuilder in Java, list in Python etc.). As a result, in order to add each instance
+     * of a valid string to answer, we must first convert it to a string. This process brings
+     * an additional nnn factor in the time complexity.
+     *
+     * Space complexity: O(n)
+     *
+     * The space complexity of a recursive call depends on the maximum depth of the recursive
+     * call stack, which is 2n. As each recursive call either adds a left parenthesis or a
+     * right parenthesis, and the total number of parentheses is 2n. Therefore, at most O(n)
+     * levels of recursion will be created, and each level consumes a constant amount of space.
+     */
+    public List<String> generateParenthesesE(int n) {
+        List<String> answer = new ArrayList<>();
+        backtracking(answer, new StringBuilder(), 0, 0, n);
+        return answer;
+    }
+
+    private void backtracking(List<String> answer,
+                              StringBuilder currStr,
+                              int leftCount,
+                              int rightCount,
+                              int n) {
+        if (currStr.length() == 2 * n) {
+            answer.add(currStr.toString());
+            return;
+        }
+        if (leftCount < n) {
+            currStr.append("(");
+            backtracking(answer, currStr, leftCount + 1, rightCount, n);
+            currStr.deleteCharAt(currStr.length() - 1);
+        }
+        if (leftCount > rightCount) {
+            currStr.append(")");
+            backtracking(answer, currStr, leftCount, rightCount + 1, n);
+            currStr.deleteCharAt(currStr.length() - 1);
+        }
+    }
     public static void main(String[] args) {
         GenerateParentheses obj = new GenerateParentheses();
-        List<String> result = obj.generateParentheses(4);
+        List<String> result = obj.generateParenthesesE(3);
         for (String s : result) {
             System.out.println(s);
         }
