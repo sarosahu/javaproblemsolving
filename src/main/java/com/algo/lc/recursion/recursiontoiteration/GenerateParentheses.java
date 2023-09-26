@@ -130,9 +130,46 @@ public class GenerateParentheses {
             currStr.deleteCharAt(currStr.length() - 1);
         }
     }
+
+    public List<String> generateParenthesesE2(int n) {
+        char[] str = new char[n * 2];
+        List<String> answer = new ArrayList<>();
+        addParen(answer, n, n, str, 0);
+        return answer;
+    }
+
+    // This is also a backtracking
+    private void addParen(List<String> answer,
+                          int leftRem,
+                          int rightRem,
+                          char[] str,
+                          int currIndex)
+    {
+        // Invalid state
+        if (leftRem < 0 || rightRem < leftRem) {
+            return;
+        }
+
+        if (leftRem == 0 && rightRem == 0) {
+            answer.add(String.copyValueOf(str));
+            return;
+        }
+        // Add left paren, if there are any left paren remaining
+        if (leftRem > 0) {
+            str[currIndex] = '(';
+            addParen(answer, leftRem - 1, rightRem, str, currIndex + 1);
+        }
+
+        // Add right paren, if expression is valid
+        if (rightRem > leftRem) {
+            str[currIndex] = ')';
+            addParen(answer, leftRem, rightRem - 1, str, currIndex + 1);
+        }
+    }
+
     public static void main(String[] args) {
         GenerateParentheses obj = new GenerateParentheses();
-        List<String> result = obj.generateParenthesesE(3);
+        List<String> result = obj.generateParenthesesE2(3);
         for (String s : result) {
             System.out.println(s);
         }
