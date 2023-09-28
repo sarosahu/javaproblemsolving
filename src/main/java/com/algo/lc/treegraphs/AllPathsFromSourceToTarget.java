@@ -4,8 +4,10 @@ import com.algo.util.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 /**
  * Given a directed acyclic graph (DAG) of n nodes labeled from 0 to n - 1, find all possible paths
@@ -98,6 +100,34 @@ public class AllPathsFromSourceToTarget {
         return currResults;
     }
 
+
+    public List<List<Integer>> allPathsSourceTargetBfs(int[][] graph) {
+        this.graph = graph;
+        this.target = graph.length - 1;
+        this.results = new ArrayList<>();
+
+        Queue<List<Integer>> queue = new LinkedList<>();
+        List<Integer> path = new ArrayList<>();
+        path.add(0);
+        queue.offer(path);
+
+        while (!queue.isEmpty()) {
+            List<Integer> currPath = queue.poll();
+            int lastNode = currPath.get(currPath.size() - 1);
+            if (lastNode == this.target) {
+                this.results.add(currPath);
+            } else {
+                // Explore all the neighbor of lastNode
+                for (int next : graph[lastNode]) {
+                    List<Integer> newPath = new ArrayList<>(currPath);
+                    newPath.add(next);
+                    queue.offer(newPath);
+                }
+            }
+        }
+        return this.results;
+    }
+
     public static void main(String[] args) {
         int[][] graph = {
                 {1, 2},
@@ -108,8 +138,15 @@ public class AllPathsFromSourceToTarget {
         AllPathsFromSourceToTarget obj = new AllPathsFromSourceToTarget();
         List<List<Integer>> results = obj.allPathsSourceTarget(graph);
         Utils.print2DList(results);
+
         System.out.println();
+
         List<List<Integer>> results2 = obj.allPathsSourceTargetTopDownDp(graph);
         Utils.print2DList(results2);
+
+        System.out.println();
+
+        List<List<Integer>> results3 = obj.allPathsSourceTargetBfs(graph);
+        Utils.print2DList(results3);
     }
 }
