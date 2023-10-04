@@ -1,11 +1,9 @@
-package com.java.streams.test;
+package com.streams.test;
 
 import com.java.streams.model.CaloricLevel;
-import com.java.streams.model.Dish;
+import com.streams.model.Dish;
 
 import java.util.*;
-
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static java.util.Comparator.comparingInt;

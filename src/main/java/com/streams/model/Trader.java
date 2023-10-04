@@ -1,4 +1,4 @@
-package com.java.streams.model;
+package com.streams.model;
 
 public class Trader {
     public String getName() {

@@ -1,8 +1,8 @@
-package com.java.streams.test;
+package com.streams.test;
 // The questions will be on Trader and Transaction model class
 
-import com.java.streams.model.Trader;
-import com.java.streams.model.Transaction;
+import com.streams.model.Trader;
+import com.streams.model.Transaction;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -73,9 +73,9 @@ public class Test2 {
         System.out.println(traderStr);
         String tradeStr2 = transactions.stream()
                 .map(t -> t.getTrader().getName())
-                        .distinct()
-                                .sorted()
-                                        .collect(Collectors.joining());
+                .distinct()
+                .sorted()
+                .collect(Collectors.joining());
         System.out.println(tradeStr2);
         // }
         // { Are any traders based in Milan ?
@@ -113,6 +113,12 @@ public class Test2 {
         Optional<Transaction> smallestTransaction = transactions.stream()
                 .reduce((t1, t2) -> t1.getValue() < t2.getValue() ? t1 : t2);
         smallestTransaction.ifPresent(t -> System.out.println("Transaction with smallest value : " + t));
+
+        Optional<Transaction> smallestTransaction2 = transactions
+                .stream()
+                .min(Comparator.comparing(Transaction::getValue));
+
+        smallestTransaction2.ifPresent(t -> System.out.println("Transaction with smallest value : " + t));
         // }
     }
 }

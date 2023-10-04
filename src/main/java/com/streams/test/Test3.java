@@ -1,6 +1,6 @@
-package com.java.streams.test;
+package com.streams.test;
 
-import com.java.streams.model.Dish;
+import com.streams.model.Dish;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
