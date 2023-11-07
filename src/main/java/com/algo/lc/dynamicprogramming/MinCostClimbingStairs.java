@@ -40,6 +40,8 @@ import java.util.Map;
  * 0 <= cost[i] <= 999
  */
 public class MinCostClimbingStairs {
+    private int[] cost;
+    private Map<Integer, Integer> memo;
     /**
      * Bottom-up approach (iteration/tabulation)
      * Complexity Analysis
@@ -55,10 +57,17 @@ public class MinCostClimbingStairs {
      *
      * The array minimumCost is always 1 element longer than the array cost.
      */
-    public static int minCostClimbingStairs(int[] cost) {
+    public int minCostClimbingStairs(int[] cost) {
+        this.cost = cost;
+        // To reach first 2 steps, it's free, no cost is required.
+        if (cost.length == 2) {
+            return 0;
+        }
         // The array's length should be 1 longer than the length of cost.
         // This is because we can treat the "top floor" as a step to reach.
         int minCost[] = new int[cost.length + 1];
+        minCost[0] = 0;
+        minCost[1] = 0;
 
         // Start iteration from step 2, since minimum cost of reaching
         // step 0 and step 1 is 0.
@@ -73,7 +82,7 @@ public class MinCostClimbingStairs {
     }
 
     /**
-     * Top-down approach (recurrence relation)
+     * Top-down approach (recursion approach)
      *
      * Complexity Analysis
      *
@@ -92,13 +101,12 @@ public class MinCostClimbingStairs {
      * In addition, our hash map memo will be of size N at the end, since we populate
      * it with every index from 0 to N.
      */
-    public static int minCostClimbingStairs2(int[] cost) {
-        Map<Integer, Integer> memo = new HashMap<>();
-        return minCostTopDown(cost.length, cost, memo);
+    public int minCostClimbingStairs2(int[] cost) {
+        this.cost = cost;
+        memo = new HashMap<>();
+        return minCostTopDown(cost.length);
     }
-    public static int minCostTopDown(int pos,
-                                     int[] cost,
-                                     Map<Integer, Integer> memo) {
+    public int minCostTopDown(int pos) {
         // Base case: we are allowed to start at either step 0 or step 1
         // So minimum cost required to reach either step 0 or step 1 is 0.
         if (pos <= 1) {
@@ -107,8 +115,8 @@ public class MinCostClimbingStairs {
 
         // Check if we have already calculated minimum cost at position 'pos'
         if (!memo.containsKey(pos)) {
-            int downOne = cost[pos - 1] + minCostTopDown(pos - 1, cost, memo);
-            int downTwo = cost[pos - 2] + minCostTopDown(pos - 2, cost, memo);
+            int downOne = cost[pos - 1] + minCostTopDown(pos - 1);
+            int downTwo = cost[pos - 2] + minCostTopDown(pos - 2);
             memo.put(pos, Math.min(downOne, downTwo));
         }
         return memo.get(pos);
@@ -129,7 +137,8 @@ public class MinCostClimbingStairs {
      *
      * The only extra space we use is 2 variables, which are independent of input size.
      */
-    public static int minCostClimbingStairsBottomUpOptimized(int[] cost) {
+    public int minCostClimbingStairsBottomUpOptimized(int[] cost) {
+        this.cost = cost;
         int downOne = 0;
         int downTwo = 0;
         for (int i = 2; i <= cost.length; ++i) {
@@ -142,14 +151,14 @@ public class MinCostClimbingStairs {
 
     public static void main(String[] args) {
         int[] cost = {1, 100, 1, 1, 1, 100, 1, 1, 100, 1};
-
-        int minCost = minCostClimbingStairs(cost);
+        MinCostClimbingStairs obj = new MinCostClimbingStairs();
+        int minCost = obj.minCostClimbingStairs(cost);
         System.out.println("Minimum cost to climb top stair : " + minCost);
 
-        minCost = minCostClimbingStairs2(cost);
+        minCost = obj.minCostClimbingStairs2(cost);
         System.out.println("Minimum cost to climb top stair : " + minCost);
 
-        minCost = minCostClimbingStairsBottomUpOptimized(cost);
+        minCost = obj.minCostClimbingStairsBottomUpOptimized(cost);
         System.out.println("Minimum cost to climb top stair : " + minCost);
     }
 }

@@ -50,10 +50,29 @@ public class MaximalSquare {
         return max;
     }
 
+    // This logic is mostly same as previous one.
+    // We just want to remove a redundant check of (i == 0 || j == 0)
+    public static int maximalSquare2(char[][] matrix) {
+        int rows = matrix.length, cols = rows > 0 ? matrix[0].length : 0;
+        int[][] dp = new int[rows + 1][cols + 1];
+        int maxsqlen = 0;
+        // for convenience, we add an extra all zero column and row
+        // outside the actual dp table, to simpify the transition
+        for (int i = 1; i <= rows; i++) {
+            for (int j = 1; j <= cols; j++) {
+                if (matrix[i-1][j-1] == '1'){
+                    dp[i][j] = Math.min(Math.min(dp[i][j - 1], dp[i - 1][j]), dp[i - 1][j - 1]) + 1;
+                    maxsqlen = Math.max(maxsqlen, dp[i][j]);
+                }
+            }
+        }
+        return maxsqlen * maxsqlen;
+    }
+
     /**
      * Time: O(M*N), space: O(N)
      */
-    public static int maximalSquare2(char[][] matrix) {
+    public static int maximalSquare3(char[][] matrix) {
         int rows = matrix.length, cols = rows > 0 ? matrix[0].length : 0;
         int [] dp = new int[cols + 1];
         int maxsq = 0, prev = 0;
@@ -83,6 +102,8 @@ public class MaximalSquare {
         int maxsq = maximalSquare1(matrix);
         System.out.println("Maximum square length : " + maxsq);
         maxsq = maximalSquare2(matrix);
+        System.out.println("Maximum square length : " + maxsq);
+        maxsq = maximalSquare3(matrix);
         System.out.println("Maximum square length : " + maxsq);
     }
 }

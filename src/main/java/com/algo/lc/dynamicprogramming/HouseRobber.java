@@ -29,24 +29,28 @@ import java.util.Map;
  * Total amount you can rob = 2 + 9 + 1 = 12.
  */
 public class HouseRobber {
+    private int[] nums;
+    private Map<Integer, Integer> memo;
 
     /**
      * Top down recursive approach
+     * Time: O(N), Space: O(N)
      */
-    public static int rob(int[] nums) {
-        Map<Integer, Integer> memo = new HashMap<>();
-        return robTopDown(nums.length - 1, nums, memo);
+    public int rob(int[] nums) {
+        this.nums = nums;
+        memo = new HashMap<>();
+        return robTopDown(nums.length - 1);
     }
 
-    private static int robTopDown(int idx, int[] nums, Map<Integer, Integer> memo) {
+    private int robTopDown(int idx) {
         if (idx == 0) {
             return nums[0];
         } else if (idx == 1) {
             return Math.max(nums[0], nums[1]);
         }
         if (!memo.containsKey(idx)) {
-            int maxProfitDownOne = robTopDown(idx - 1, nums, memo);
-            int maxProfitDownTwo = robTopDown(idx - 2, nums, memo) + nums[idx];
+            int maxProfitDownOne = robTopDown(idx - 1);
+            int maxProfitDownTwo = robTopDown(idx - 2) + nums[idx];
             memo.put(idx, Math.max(maxProfitDownOne, maxProfitDownTwo));
         }
         return memo.get(idx);
@@ -54,8 +58,10 @@ public class HouseRobber {
 
     /**
      * Bottom up approach : Tabulation
+     * Time: O(N), Space: O(N)
      */
-    public static int robBottomUp(int[] nums) {
+    public int robBottomUp(int[] nums) {
+        this.nums = nums;
         if (nums.length == 1) {
             return nums[0];
         } else if (nums.length == 2) {
@@ -81,7 +87,8 @@ public class HouseRobber {
      * Space Complexity: O(1) since we are not using a table to store our values.
      * Simply using two variables will suffice for our calculations.
      */
-    public static int robBottomUpOptimized(int[] nums) {
+    public int robBottomUpOptimized(int[] nums) {
+        this.nums = nums;
         if (nums.length == 1) {
             return nums[0];
         } else if (nums.length == 2) {
@@ -100,13 +107,14 @@ public class HouseRobber {
 
     public static void main(String[] args) {
         int[] nums = {2,7,9,3,1};
-        int maxProfit = rob(nums);
+        HouseRobber houseRobber = new HouseRobber();
+        int maxProfit = houseRobber.rob(nums);
         System.out.println("Maximum profit : " + maxProfit);
 
-        maxProfit = robBottomUp(nums);
+        maxProfit = houseRobber.robBottomUp(nums);
         System.out.println("Maximum profit : " + maxProfit);
 
-        maxProfit = robBottomUpOptimized(nums);
+        maxProfit = houseRobber.robBottomUpOptimized(nums);
         System.out.println("Maximum profit : " + maxProfit);
     }
 }
