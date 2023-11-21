@@ -132,7 +132,7 @@ public class MinNumberOfCoinsForChange {
      * Complexity Analysis
      * Time complexity : O(S∗n).
      * On each step the algorithm finds the next F(i) in n iterations, where 1≤i≤S.
-     * Therefore in total the iterations are S∗n.
+     * Therefore, in total the iterations are S∗n.
      * Space complexity : O(S).
      * We use extra space for the memoization table.
      */
@@ -156,7 +156,12 @@ public class MinNumberOfCoinsForChange {
 
     /**
      * My approach for bottom-up (Iteration)
-     *
+     * Time: O(n*d), space: O(n*d)
+     * n: total amount
+     * d: total number of denominations.
+     * Note: This is better solutions in terms of space. Also, if we want to find out the
+     * actual denominations that contribute to the amount, we can use this final output
+     * of 2 dimensional array.
      */
     public static int coinChange2(int[] coins, int amount) {
         int max = amount + 1;
@@ -188,6 +193,12 @@ public class MinNumberOfCoinsForChange {
 
     /**
      * My implementation (Bottom - up) (optimized)
+     * Time: O(n*d), space: O(n)
+     * n: total amount
+     * d: total number of denominations.
+     * Note: This is better solutions in terms of space. Also, if we want to find out the
+     * actual denominations that contribute to the amount, we can use 2-dimensional array
+     * approach as above coinChange2().
      */
     public int coinChange3(int[] coins, int amount) {
         int max = amount + 1;
@@ -197,8 +208,8 @@ public class MinNumberOfCoinsForChange {
         dp[0] = 0;
 
         for (int i = 1; i <= coins.length; ++i) {
+            int coinVal = coins[i - 1];
             for (int j = 1; j <= amount; ++j) {
-                int coinVal = coins[i - 1];
                 if (j >= coinVal) {
                     dp[j] = Math.min(dp[j], 1 + dp[j - coinVal]);
                 }
