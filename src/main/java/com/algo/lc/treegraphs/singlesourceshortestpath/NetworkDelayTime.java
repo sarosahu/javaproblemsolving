@@ -1,9 +1,6 @@
 package com.algo.lc.treegraphs.singlesourceshortestpath;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * You are given a network of n nodes, labeled from 1 to n. You are also given times,
@@ -78,7 +75,7 @@ public class NetworkDelayTime {
         }
         Node startNode = g.nodes.get(k - 1);
         startNode.relDist = 0;
-        Queue<Node> pq = new PriorityQueue<>((a, b) -> a.relDist - b.relDist);
+        Queue<Node> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a.relDist));
         pq.add(startNode);
         while (!pq.isEmpty()) {
             Node curr = pq.poll();
