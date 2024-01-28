@@ -46,6 +46,32 @@ public class PowerSets {
         return subsets;
     }
 
+    public static List<List<Integer>>
+    generatePowerSet(List<Integer> input) {
+        List<List<Integer>> powerSet = new ArrayList<>();
+        List<Integer> selectedSoFar = new ArrayList<>();
+        generatePowerSetHelper(input, 0, selectedSoFar, powerSet);
+        return powerSet;
+    }
+
+    private static void
+    generatePowerSetHelper(List<Integer> input,
+                           int toBeSelected,
+                           List<Integer> selectedSoFar,
+                           List<List<Integer>> powerSet) {
+        if (toBeSelected == input.size()) {
+            powerSet.add(new ArrayList<>(selectedSoFar));
+            return;
+        }
+        // Generate all subsets that contain input[toBeSelected]
+        selectedSoFar.add(input.get(toBeSelected));
+        generatePowerSetHelper(input, toBeSelected + 1, selectedSoFar, powerSet);
+        // Generate all subsets that don't contain input[toBeSelected]
+        selectedSoFar.remove(selectedSoFar.size() - 1);
+        generatePowerSetHelper(input, toBeSelected + 1, selectedSoFar, powerSet);
+    }
+
+
     public static void main(String[] args) {
         List<Integer> array = Arrays.asList(1, 2, 3);
         List<List<Integer>> powerSets = getPowerSetsL(array);
@@ -64,6 +90,12 @@ public class PowerSets {
                 System.out.printf("%d ", num);
             }
             System.out.println();
+        }
+
+        List<List<Integer>> powerSets3 = generatePowerSet(array);
+        System.out.println("Subsets : ");
+        for (List<Integer> powerSet : powerSets3) {
+            System.out.println(powerSet.toString());
         }
     }
 }

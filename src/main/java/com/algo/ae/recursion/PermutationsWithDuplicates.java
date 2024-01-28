@@ -42,10 +42,53 @@ public class PermutationsWithDuplicates {
         return counts;
     }
 
+    public static List<List<Integer>>
+    permutationsWithDuplicates(List<Integer> array) {
+        List<List<Integer>> perms = new ArrayList<>();
+        permutationsWithDuplicatesHelper(0, array, perms);
+        return perms;
+    }
+
+    private static void
+    permutationsWithDuplicatesHelper(int currIndex,
+                                     List<Integer> array,
+                                     List<List<Integer>> perms) {
+        if (currIndex == array.size()) {
+            perms.add(new ArrayList<>(array));
+            return;
+        }
+        for (int i = currIndex; i < array.size(); ++i) {
+            if (i != currIndex && array.get(i) == array.get(i - 1)) {
+                continue;
+            }
+            swap(array, i, currIndex);
+            permutationsWithDuplicatesHelper(currIndex + 1, array, perms);
+            swap(array, i, currIndex);
+        }
+    }
+
+    private static void swap(List<Integer> array, int i, int j) {
+        if (i == j) {
+            return;
+        }
+        int temp = array.get(i);
+        array.set(i, array.get(j));
+        array.set(j, temp);
+    }
     public static void main(String[] args) {
-        List<Integer> array = Arrays.asList(2, 2, 2, 2);
+        List<Integer> array = Arrays.asList(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2);
+        //List<Integer> array = Arrays.asList(1, 2, 2);
+        System.out.println("Calling getPermutationsWithDuplicates()");
         List<List<Integer>> permutations = getPermutationsWithDuplicates(array);
         for (List<Integer> permutation : permutations) {
+            for (int num: permutation) {
+                System.out.printf("%d ", num);
+            }
+            System.out.println();
+        }
+        System.out.println("Calling permutationsWithDuplicates()");
+        List<List<Integer>> permutations2 = permutationsWithDuplicates(array);
+        for (List<Integer> permutation : permutations2) {
             for (int num: permutation) {
                 System.out.printf("%d ", num);
             }
