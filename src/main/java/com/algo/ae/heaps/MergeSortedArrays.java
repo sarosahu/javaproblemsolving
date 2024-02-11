@@ -15,6 +15,7 @@ import java.util.*;
  * arrays = [
  *     [1, 5, 9, 21],
  *     [-1, 0],
+ *
  *     [-124, 81, 121],
  *     [3, 6, 12, 20, 150]
  * ]
@@ -39,12 +40,16 @@ public class MergeSortedArrays {
         List<Integer> resultList = new ArrayList<>();
         while (!minHeap.isEmpty()) {
             ElementIterator currIterator = minHeap.poll();
-            resultList.add(currIterator.currValue);
+            //resultList.add(currIterator.currValue);
             List<Integer> currArray = arrays.get(currIterator.arrayIdx);
-            if (currIterator.idx + 1 < currArray.size()) {
-                minHeap.add(new ElementIterator(
+            resultList.add(currArray.get(currIterator.idx));
+            if (currIterator.idx < currArray.size() - 1) {
+                currIterator.idx += 1;
+                currIterator.currValue = currArray.get(currIterator.idx);
+                /*minHeap.add(new ElementIterator(
                         currIterator.idx + 1, currIterator.arrayIdx, currArray.get(currIterator.idx + 1)
-                ));
+                ));*/
+                minHeap.offer(currIterator);
             }
         }
         return resultList;

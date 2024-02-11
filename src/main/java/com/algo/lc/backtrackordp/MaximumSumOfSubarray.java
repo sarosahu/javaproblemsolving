@@ -36,5 +36,9 @@ public class MaximumSumOfSubarray {
         int[] a = {2, -5, 3, 9, -2, 5, -6, 7, -2, 3};
         int maxSum = maxSumSubarrayE(a);
         System.out.println("Maximum sum sub-array : " + maxSum);
+
+        int [] a1 = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+        maxSum = maxSumSubarray(a1);
+        System.out.println("Max sum : " + maxSum);
     }
 }

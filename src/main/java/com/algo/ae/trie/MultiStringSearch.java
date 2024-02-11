@@ -129,5 +129,6 @@ public class MultiStringSearch {
             node.children.put(endSymbol, null);
             node.word = str;
         }
+
     }
 }
