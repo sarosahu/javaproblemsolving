@@ -35,7 +35,7 @@ public class PathWithMaximumMinValue {
             {-1, 0}, {0, 1}, {1, 0}, {0, -1}
     };
 
-    // { MinHeap approach with BFS
+    // { MaxHeap approach with BFS
     // Time: O(m*n*log(m*n), space : O(m * n)
     public int maximumMinimumPath(int[][] grid) {
         int rowLen = grid.length;

@@ -53,13 +53,13 @@ public class WordLadder {
         }
     }
 
-    public static int ladderLength(String beginWord, String endWord, List<String> wordList) {
+    public int ladderLengthBfs(String beginWord, String endWord, List<String> wordList) {
         // Since all the words are of same length
-        int L = beginWord.length();
+        this.L = beginWord.length();
 
         // Dictionary to hold combination of words that can be formed,
         // from any given word. By changing one letter at a time.
-        Map<String, List<String>> allComboDict = new HashMap<>();
+        this.allComboDict = new HashMap<>();
 
         for (String word : wordList) {
             for (int i = 0; i < L; ++i) {
@@ -108,7 +108,56 @@ public class WordLadder {
         return 0;
     }
 
-    public int ladderLength2(String beginWord, String endWord, List<String> wordList) {
+    public int ladderLengthBfs2(String beginWord, String endWord, List<String> wordList) {
+        if (!wordList.contains(endWord)) {
+            return 0;
+        }
+
+        // Since all words are of same length
+        this.L = beginWord.length();
+
+        for (String word : wordList) {
+            for (int i = 0; i < L; ++i) {
+                // Key is the generic word
+                // Value is a list of words which have the same intermediate generic word.
+                //String newWord = word.substring(0, i) + '*' + word.substring(i + 1, L);
+                String newWord = word.substring(0, i) + '*' + word.substring(i + 1);
+                List<String> transformations =
+                        allComboDict.getOrDefault(newWord, new ArrayList<>());
+                allComboDict.put(newWord, transformations);
+                allComboDict.get(newWord).add(word);
+            }
+        }
+
+        Set<String> visited = new HashSet<>();
+        Queue<String> queue = new LinkedList<>();
+        queue.offer(beginWord);
+        visited.add(beginWord);
+        int level = 0;
+        while (!queue.isEmpty()) {
+            int sz = queue.size();
+            ++level;
+            while (sz > 0) {
+                String curr = queue.poll();
+                if (curr.equals(endWord)) {
+                    return level;
+                }
+                for (int i = 0; i < L; ++i) {
+                    String newWord = curr.substring(0, i) + '*' + curr.substring(i + 1);
+                    for (String w : allComboDict.getOrDefault(newWord, new ArrayList<>())) {
+                        if (!visited.contains(w)) {
+                            queue.offer(w);
+                            visited.add(w);
+                        }
+                    }
+                }
+                --sz;
+            } // sz > 0
+        } // (!queue.isEmpty())
+        return 0;
+    }
+
+    public int ladderLengthBiBfs(String beginWord, String endWord, List<String> wordList) {
 
         if (!wordList.contains(endWord)) {
             return 0;
@@ -190,11 +239,16 @@ public class WordLadder {
     }
 
     public static void main(String[] args) {
+        WordLadder obj = new WordLadder();
         List<String> wordList = Arrays.asList("hot","dot","dog","lot","log","cog");
-        int ladderLen = ladderLength("hit", "cog", wordList);
-        System.out.println("Ladder length : " + ladderLen);
-        WordLadder wordLadder = new WordLadder();
-        ladderLen = wordLadder.ladderLength2("hit", "cog", wordList);
-        System.out.println("Ladder length 2 : " + ladderLen);
+
+        int ladderLen = obj.ladderLengthBfs("hit", "cog", wordList);
+        System.out.println("Ladder length (BFS) 1: " + ladderLen);
+
+        ladderLen = obj.ladderLengthBfs2("hit", "cog", wordList);
+        System.out.println("Ladder length (BFS) 2: " + ladderLen);
+
+        ladderLen = obj.ladderLengthBiBfs("hit", "cog", wordList);
+        System.out.println("Ladder length (bidirectional BFS): " + ladderLen);
     }
 }

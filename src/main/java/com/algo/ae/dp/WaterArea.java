@@ -66,27 +66,27 @@ public class WaterArea {
     }
 
     // Time: O(N), Space : O(1)
-    public static int waterAreaE(int[] heights) {
-        if (heights.length == 0) {
+    public static int waterAreaE(int[] height) {
+        if (height.length == 0) {
             return 0;
         }
 
-        int leftIdx = 0, rightIdx = heights.length - 1;
-        int leftMax = heights[leftIdx];
-        int rightMax = heights[rightIdx];
+        int leftIdx = 0, rightIdx = height.length - 1;
+        int leftMax = height[leftIdx];
+        int rightMax = height[rightIdx];
         int area = 0;
 
         while (leftIdx < rightIdx) {
-            int currLeftHeight = heights[leftIdx];
-            int currRightHeight = heights[rightIdx];
+            int currLeftHeight = height[leftIdx];
+            int currRightHeight = height[rightIdx];
             if (currLeftHeight < currRightHeight) {
                 ++leftIdx;
-                leftMax = Math.max(leftMax, heights[leftIdx]);
-                area += leftMax - heights[leftIdx];
+                leftMax = Math.max(leftMax, height[leftIdx]);
+                area += leftMax - height[leftIdx];
             } else {
                 --rightIdx;
-                rightMax = Math.max(rightMax, heights[rightIdx]);
-                area += rightMax - heights[rightIdx];
+                rightMax = Math.max(rightMax, height[rightIdx]);
+                area += rightMax - height[rightIdx];
             }
         }
         return area;

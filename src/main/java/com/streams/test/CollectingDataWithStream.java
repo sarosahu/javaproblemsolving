@@ -168,7 +168,7 @@ public class CollectingDataWithStream {
                 menu.stream()
                         .collect(groupingBy(Dish::getType,
                                 filtering(dish -> dish.getCalories() > 500, toList())));
-        System.out.println("Caloric dishes (calori > 500) by type 2: " + caloricDishesByType2);
+        System.out.println("Caloric dishes (calories > 500) by type 2: " + caloricDishesByType2);
 
         // Another groupingBy() to manipuate the grouped elements ->
         // Transform them through a mapping function
@@ -177,7 +177,7 @@ public class CollectingDataWithStream {
         Map<Dish.Type, List<String>> dishNamesByType =
                 menu.stream()
                         .collect(groupingBy(Dish::getType, mapping(Dish::getName, toList())));
-        System.out.println("Dishes name by type : " + dishNamesByType);
+        System.out.println("Dishes name by type >>>> : " + dishNamesByType);
 
         // You could also use a third Collector in combination with the groupingBy to perform
         // a flatMap transformation instead of a plain map. To demonstrate how this works let’s

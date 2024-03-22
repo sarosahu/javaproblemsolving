@@ -25,7 +25,7 @@ package com.algo.lc.dynamicprogramming;
  * 1 <= s.length <= 1000
  * s consist of only digits and English letters.
  */
-public class LongestPalindromicSubstring {
+public class    LongestPalindromicSubstring {
     static class Boundary {
         public int start;
         public int end;

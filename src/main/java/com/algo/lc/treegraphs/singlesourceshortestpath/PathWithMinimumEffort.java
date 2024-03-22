@@ -11,14 +11,14 @@ public class PathWithMinimumEffort {
     public int minimumEffortPath2(int[][] heights) {
         int row = heights.length;
         int col = heights[0].length;
-        Queue<Cell> queue = new PriorityQueue<>(
+        Queue<Cell> minHeap = new PriorityQueue<>(
                 Comparator.comparing(a -> a.diff)
         );
         boolean[][] visited = new boolean[row][col];
-        queue.add(new Cell(0, 0, 0));
+        minHeap.add(new Cell(0, 0, 0));
         int maxSoFar = 0;
-        while (!queue.isEmpty()) {
-            Cell curr = queue.poll();
+        while (!minHeap.isEmpty()) {
+            Cell curr = minHeap.poll();
             //maxSoFar = Math.max(curr.diff, maxSoFar);
             visited[curr.x][curr.y] = true;
             maxSoFar = Math.max(maxSoFar, curr.diff);
@@ -34,7 +34,7 @@ public class PathWithMinimumEffort {
                 int currVal = heights[curr.x][curr.y];
                 int adjVal = heights[adjx][adjy];
                 int currDiff = Math.abs(adjVal - currVal);
-                queue.add(new Cell(adjx, adjy, currDiff));
+                minHeap.add(new Cell(adjx, adjy, currDiff));
             }
         }
         return maxSoFar;

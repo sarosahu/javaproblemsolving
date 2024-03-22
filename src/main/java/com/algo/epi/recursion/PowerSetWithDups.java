@@ -6,7 +6,33 @@ import java.util.Collections;
 import java.util.List;
 
 public class PowerSetWithDups {
-    public static List<List<Integer>>
+
+    // { Iterative approach.
+    // Time: O(N*2^N), Space: O(LogN)
+    public List<List<Integer>>
+    subsetWithDuplicateI(int [] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> subsets = new ArrayList<>();
+        subsets.add(new ArrayList<>());
+
+        int subsetSize = 0;
+        for (int i = 0; i < nums.length; ++i) {
+            int startIdx = (i >= 1 && nums[i] == nums[i - 1]) ? subsetSize : 0;
+            subsetSize = subsets.size();
+
+            for (int j = startIdx; j < subsetSize; ++j) {
+                List<Integer> prevSubset = subsets.get(j);
+                List<Integer> newSubset = new ArrayList<>(prevSubset);
+                newSubset.add(nums[i]);
+                subsets.add(newSubset);
+            }
+        }
+        return subsets;
+    }
+    // } Iterative solution.
+
+    // { Recursive approach : Time: O(N* 2^N), space : O(N)
+    public List<List<Integer>>
     generatePowerSet(List<Integer> input) {
         Collections.sort(input);
         List<List<Integer>> powerSet = new ArrayList<>();
@@ -15,7 +41,7 @@ public class PowerSetWithDups {
         return powerSet;
     }
 
-    private static void
+    private void
     generatePowerSetHelper(List<Integer> input,
                            int fromIdx,
                            List<Integer> selectedSoFar,
@@ -31,30 +57,21 @@ public class PowerSetWithDups {
             selectedSoFar.remove(selectedSoFar.size() - 1);
         }
     }
-
-    private static void
-    generatePowerSetHelper2(List<Integer> input,
-                           int fromIdx,
-                           List<Integer> selectedSoFar,
-                           List<List<Integer>> powerSet) {
-        if (fromIdx == input.size()) {
-            powerSet.add(new ArrayList<>(selectedSoFar));
-            return;
-        }
-        // Generate all subsets that contain input[toBeSelected]
-        selectedSoFar.add(input.get(fromIdx));
-        generatePowerSetHelper2(input, fromIdx + 1, selectedSoFar, powerSet);
-
-        // Generate all subsets that don't contain input[toBeSelected]
-        selectedSoFar.remove(selectedSoFar.size() - 1);
-        generatePowerSetHelper2(input, fromIdx + 1, selectedSoFar, powerSet);
-    }
+    // } Recursive approach
 
     public static void main(String[] args) {
+        PowerSetWithDups obj = new PowerSetWithDups();
         List<Integer> array = Arrays.asList(1, 2, 3, 2);
-        List<List<Integer>> powerSets3 = generatePowerSet(array);
+        List<List<Integer>> powerSets3 = obj.generatePowerSet(array);
         System.out.println("Subsets : ");
         for (List<Integer> powerSet : powerSets3) {
+            System.out.println(powerSet.toString());
+        }
+
+        int[] nums = {1, 2, 3, 2};
+        List<List<Integer>> powerSets = obj.subsetWithDuplicateI(nums);
+        System.out.println("Subsets 2 : ");
+        for (List<Integer> powerSet : powerSets) {
             System.out.println(powerSet.toString());
         }
     }

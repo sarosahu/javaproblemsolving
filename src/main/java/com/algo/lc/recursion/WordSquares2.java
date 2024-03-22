@@ -47,19 +47,19 @@ public class WordSquares2 {
         this.buildTrie(words);
 
         for (String word : words) {
-            LinkedList<String> wordSquares = new LinkedList<>();
-            wordSquares.addLast(word);
+            List<String> wordSquares = new LinkedList<>();
+            wordSquares.add(word);
             this.backtracking(1, wordSquares, results);
         }
         return results;
     }
 
     private void backtracking(int step,
-                              LinkedList<String> wordSquares,
+                              List<String> wordSquares,
                               List<List<String>> results)
     {
         if (step == N) {
-            results.add((List<String>) wordSquares.clone());
+            results.add(new ArrayList<>(wordSquares));
             return;
         }
         StringBuilder prefix = new StringBuilder();
@@ -68,9 +68,9 @@ public class WordSquares2 {
         }
 
         for (Integer wordIndex : this.getWordsWithPrefix(prefix.toString())) {
-            wordSquares.addLast(this.words[wordIndex]);
+            wordSquares.add(this.words[wordIndex]);
             this.backtracking(step + 1, wordSquares, results);
-            wordSquares.removeLast();
+            wordSquares.remove(wordSquares.size() - 1);
         }
     }
 
@@ -103,5 +103,17 @@ public class WordSquares2 {
             }
         }
         return node.wordList;
+    }
+
+    public static void main(String[] args) {
+        WordSquares2 obj = new WordSquares2();
+        String[] words = {"area","lead","wall","lady","ball"};
+        List<List<String>> lists = obj.wordSquares(words);
+        for (List<String> l : lists) {
+            for (String w : l) {
+                System.out.printf("%s ", w);
+            }
+            System.out.println();
+        }
     }
 }

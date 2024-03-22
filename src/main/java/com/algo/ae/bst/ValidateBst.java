@@ -38,13 +38,13 @@ public class ValidateBst {
                 validateBstHelper(root.right, root.value, maxValue);
     }
 
-    // Recursive way: O(n) time, O(d) space
+    // Iterative way: O(n) time, O(d) space
     public static boolean validateBstL(BST tree) {
         // Write your code here.
-        Queue<QueueNode> queue = new LinkedList<>();
         if (tree == null) {
             return true;
         }
+        Queue<QueueNode> queue = new LinkedList<>();
         queue.add(new QueueNode(tree, Integer.MIN_VALUE, Integer.MAX_VALUE));
         while (!queue.isEmpty()) {
             QueueNode qnode = queue.poll();

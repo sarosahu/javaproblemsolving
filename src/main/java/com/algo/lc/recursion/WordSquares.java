@@ -89,19 +89,19 @@ public class WordSquares {
         this.buildPrefixTable(words);
 
         for (String word : words) {
-            LinkedList<String> wordSquares = new LinkedList<>();
-            wordSquares.addLast(word);
+            List<String> wordSquares = new ArrayList<>();
+            wordSquares.add(word);
             this.backtracking(1, wordSquares, results);
         }
         return results;
     }
 
     private void backtracking(int step,
-                              LinkedList<String> wordSquares,
+                              List<String> wordSquares,
                               List<List<String>> results)
     {
         if (step == N) {
-            results.add((List<String>) wordSquares.clone());
+            results.add(new ArrayList<>(wordSquares));
             return;
         }
         StringBuilder prefix = new StringBuilder();
@@ -110,9 +110,9 @@ public class WordSquares {
         }
 
         for (String candidate : this.getWordsWithPrefix(prefix.toString())) {
-            wordSquares.addLast(candidate);
+            wordSquares.add(candidate);
             this.backtracking(step + 1, wordSquares, results);
-            wordSquares.removeLast();
+            wordSquares.remove(wordSquares.size() - 1);
         }
     }
 
@@ -121,13 +121,10 @@ public class WordSquares {
         for (String word : words) {
             for (int i = 1; i < this.N; ++i) {
                 String prefix = word.substring(0, i);
-                List<String> wordList = this.prefixTable.get(prefix);
-                if (wordList == null) {
-                    wordList =  new ArrayList<String>();
-                    this.prefixTable.put(prefix, wordList);
+                if (!prefixTable.containsKey(prefix)) {
+                    prefixTable.put(prefix, new ArrayList<>());
                 }
-                //this.prefixTable.get(prefix).add(word);
-                wordList.add(word);
+                this.prefixTable.get(prefix).add(word);
             }
         }
     }

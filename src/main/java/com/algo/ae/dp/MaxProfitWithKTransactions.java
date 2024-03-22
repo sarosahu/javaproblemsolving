@@ -27,7 +27,7 @@ package com.algo.ae.dp;
 public class MaxProfitWithKTransactions {
     // Time : O(nk), space : O(nk)
     public static int maxProfitWithKTransactions(int[] prices, int k) {
-        if (prices.length == 0) {
+        if (prices.length <= 1) {
             return 0;
         }
         int [][] profits = new int[k+1][prices.length];
@@ -43,32 +43,31 @@ public class MaxProfitWithKTransactions {
 
     // Time : O(nk), space : O(n)
     public static int maxProfitWithKTransactionsE(int[] prices, int k) {
-        if (prices.length == 0) {
+        if (prices.length <= 1) {
             return 0;
         }
-        int[] evenProfits = new int[prices.length];
-        int[] oddProfits = new int[prices.length];
 
-        int[] currProfits;
-        int[] prevProfits;
+        int[] currProfits = new int[prices.length];
+        int[] prevProfits = new int[prices.length];
+        int [] temp;
 
         for (int t = 1; t <= k; ++t) {
             int maxSoFar = Integer.MIN_VALUE;
-            if (t % 2 == 1) {
-                currProfits = oddProfits;
-                prevProfits = evenProfits;
-            } else {
-                currProfits = evenProfits;
-                prevProfits = oddProfits;
-            }
 
             for (int d = 1; d < prices.length; ++d) {
                 maxSoFar = Math.max(maxSoFar, prevProfits[d - 1] - prices[d - 1]);
                 currProfits[d] = Math.max(currProfits[d - 1], maxSoFar + prices[d]);
             }
+            if (t == k) {
+                break;
+            }
+            temp = currProfits;
+            currProfits = prevProfits;
+            prevProfits = temp;
+
         }
-        return k % 2 == 0 ?
-                evenProfits[prices.length - 1] : oddProfits[prices.length - 1];
+
+        return currProfits[prices.length - 1];
     }
     public static void main(String[] args) {
         int[] prices = {5, 11, 3, 50, 60, 90};

@@ -1,5 +1,7 @@
 package com.algo.epi.search;
 
+import java.util.Arrays;
+
 /**
  * 12.4 Search a cyclically sorted array.
  *
@@ -25,57 +27,41 @@ public class SearchSmallestInCyclicallySortedArray {
         return l;
     }
 
-    /*public static int searchLargest(int[] arr) {
-        int l = 0, r = arr.length - 1;
-        int largest = -1;
-        while (l <= r) {
-            int mid = l + (r - l)/2;
-            if (arr[mid] < arr[l]) {
-                r = mid - 1;
-            } else { // arr[mid] >= arr[l]
-                //largest = mid;
-                l = mid;
-                if (r - l == 1) {
-                    r = arr[r] > arr[l] ? r : l;
-                    break;
-                }
-            }
-        }
-        return r;
-    }*/
-
     public static int searchLargest(int[] arr) {
         int l = 0, r = arr.length - 1;
-        //int largest = -1;
         while (l < r) {
+            if (arr[r] > arr[l]) {
+                break;
+            }
+            if (r - l == 1) {
+                r = arr[r] > arr[l] ? r : l;
+                break;
+            }
             int mid = l + (r - l)/2;
-            if (arr[mid] < arr[l]) {
-                r = mid - 1;
-            } else { // arr[mid] >= arr[l]
-                //largest = mid;
+            if (arr[mid] > arr[l]) {
                 l = mid;
-                if (r - l == 1) {
-                    r = arr[r] > arr[l] ? r : l;
-                    break;
-                }
+            } else { // arr[mid] < arr[l]
+                r = mid - 1;
             }
         }
         return r;
     }
 
     public static void main(String[] args) {
-        //int[] array = {38, 40, 50, 60, 10, 20, 25, 28, 30, 35, 37};
-        //int[] array = {60, 70, 75, 10, 20};
-        int[] array = {55, 10, 20, 30, 40, 50};
-        //int smallest = searchSmallest(array);
+        int [] array = {378, 478, 550, 631, 103, 203, 220, 234, 279, 368};
+        System.out.println(Arrays.toString(array));
+        int smallest = searchSmallest(array);
+        System.out.println("Smallest element : " + array[smallest]);
         int largest = searchLargest(array);
-        //System.out.println("Smallest element : " + array[smallest]);
         System.out.println("Largest element : " + array[largest]);
 
-        /*
+        System.out.println("---------------------");
+
         int[] array2 = {38, 40, 50, 60, 70, 80, 20, 28, 30, 35, 37};
+        System.out.println(Arrays.toString(array2));
         smallest = searchSmallest(array2);
         System.out.println("Smallest element : " + array2[smallest]);
-        System.out.println("Largest element : " + array2[largest]);*/
+        largest = searchLargest(array2);
+        System.out.println("Largest element : " + array2[largest]);
     }
 }

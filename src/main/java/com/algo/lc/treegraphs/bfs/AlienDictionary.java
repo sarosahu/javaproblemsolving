@@ -65,6 +65,41 @@ public class AlienDictionary {
         return output.length() < chars.size() ? "" : output;
     }
 
+    public static String alienOrder2(String[] words) {
+        List<String> wordList = new ArrayList<>();
+        wordList.add(words[0]);
+        for (int i = 1; i < words.length; ++i) {
+            String curr = words[i];
+            String prev = wordList.get(wordList.size() - 1);
+            if (!curr.equals(prev)) {
+                if (prev.startsWith(curr)) {
+                    return "";
+                }
+                wordList.add(curr);
+            }
+        }
+
+        // Step 1. Fetch unique chars from wordList and store it in a set
+        Set<Character> chars = new HashSet<>();
+        for (String word : wordList) {
+            for (char c : word.toCharArray()) {
+                chars.add(c);
+            }
+        }
+
+        // Step 2 - create a graph
+        Graph graph = new Graph(chars);
+
+        // Step 3 - add dependencies
+        for (int i = 0; i < wordList.size() - 1; ++i) {
+            String curr = words[i];
+            String next = words[i + 1];
+            addDependencies(graph, curr, next);
+        }
+
+        return graph.topologicalSort();
+    }
+
     private static void addDependencies(Graph graph, String s1, String s2) {
         int i = 0;
         while (i < s1.length() && i < s2.length()) {
@@ -103,12 +138,12 @@ public class AlienDictionary {
     }
 
     static class Graph {
-        List<Node> nodes = new ArrayList<>();
+        //List<Node> nodes = new ArrayList<>();
         Map<Character, Node> charToNode = new HashMap<>();
         public Graph(Set<Character> charList) {
             charList.forEach(c -> {
                 Node node = new Node(c);
-                nodes.add(node);
+                //nodes.add(node);
                 charToNode.put(c, node);
             });
         }
@@ -124,7 +159,7 @@ public class AlienDictionary {
 
         public String getTopologicalSort() {
             Queue<Node> queue = new LinkedList<>();
-            for (Node node : this.nodes) {
+            for (Node node : charToNode.values()) {
                 if (node.getIndegree() == 0) {
                     queue.add(node);
                 }
@@ -142,12 +177,51 @@ public class AlienDictionary {
             }
             return b.toString();
         }
+
+        public String topologicalSort() {
+            StringBuilder sb = new StringBuilder();
+            Map<Character, Boolean> seen = new HashMap<>();
+            boolean hasCycle = false;
+            for (Node node : charToNode.values()) {
+                boolean result = topologicalSortDfs(sb, seen, node);
+                if (!result) {
+                    hasCycle = true;
+                    break;
+                }
+            }
+            if (hasCycle) {
+                return "";
+            }
+            return sb.reverse().toString();
+        }
+
+        private boolean topologicalSortDfs(StringBuilder sb,
+                                           Map<Character, Boolean> seen,
+                                           Node node) {
+            if (seen.containsKey(node.getValue())) {
+                return seen.get(node.getValue());
+            }
+            seen.put(node.getValue(), false);
+            for (Node edge : node.getEdges()) {
+                boolean result = topologicalSortDfs(sb, seen, edge);
+                if (!result) {
+                    return false;
+                }
+            }
+            seen.put(node.getValue(), true);
+            sb.append(node.getValue());
+            return true;
+        }
     }
 
+
     public static void main(String[] args) {
-        //String[] words = {"wrt","wrf","er","ett","rftt"};
-        String[] words = {"abx", "ab"};
+        String[] words = {"wrt","wrf","er","ett","rftt"};
+        //String[] words = {"abx", "ab"};
         String output = alienOrder(words);
-        System.out.println("Output : " + output);
+        System.out.println("Output (BFS) : " + output);
+
+        output = alienOrder2(words);
+        System.out.println("Output (DFS) : " + output);
     }
 }

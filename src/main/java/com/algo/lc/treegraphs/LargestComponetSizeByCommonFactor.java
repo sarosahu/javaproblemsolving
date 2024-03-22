@@ -156,7 +156,8 @@ public class LargestComponetSizeByCommonFactor {
     }
 
     public static void main(String[] args) {
-        int [] nums = {2,3,6,7,4,12,21,39};
+        //int [] nums = {2,3,6,7,4,12,21,39};
+        int [] nums = {4, 210};
         LargestComponetSizeByCommonFactor obj = new LargestComponetSizeByCommonFactor();
         int largestComponentSize = obj.largestComponentSize2(nums);
         System.out.println("Max component size : " + largestComponentSize);
