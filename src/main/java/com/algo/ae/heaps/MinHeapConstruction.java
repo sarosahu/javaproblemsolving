@@ -1,6 +1,7 @@
 package com.algo.ae.heaps;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -95,5 +96,18 @@ public class MinHeapConstruction {
             heap.set(j, heap.get(i));
             heap.set(i, temp);
         }
+
+        public List<Integer> getMinHeapArray() {
+            return this.heap;
+        }
+    }
+
+    public static void main(String[] args) {
+        //int [] arr = {7, 45, 9, 2, 10, 8};
+        List<Integer> aList = Arrays.asList(7, 45, 9, 2, 10, 8);
+        System.out.println("Input array: " + aList.toString());
+        MinHeap minHeap = new MinHeap(aList);
+        List<Integer> bList = minHeap.getMinHeapArray();
+        System.out.println("MinHeap array: " + bList.toString());
     }
 }

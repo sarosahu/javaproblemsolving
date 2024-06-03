@@ -115,15 +115,17 @@ public class Permutations {
     }
 
     public static void main(String[] args) {
-        List<Integer> list = new ArrayList<>();
-        /*List<List<Integer>> permutations = getPermutations(Arrays.asList(1, 2, 3, 4));
+        //List<Integer> list = new ArrayList<>();
+        System.out.println("Using first logic getPermutations()");
+        List<List<Integer>> permutations = getPermutations(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
         for (List<Integer> perm : permutations) {
             for (int num : perm) {
                 System.out.printf("%d, ", num);
             }
             System.out.println();
-        }*/
-
+        }
+        System.out.println("Done.");
+        System.out.println("Using second logic getPermutations2()");
         List<List<Integer>> permutations2 = getPermutations(Arrays.asList(1, 2, 3, 4));
         System.out.println("Size : " + permutations2.size());
         for (List<Integer> perm : permutations2) {
@@ -132,6 +134,7 @@ public class Permutations {
             }
             System.out.println();
         }
+        System.out.println("Done");
 
         List<Integer> array = Arrays.asList(1, 3, 4, 2);
         boolean nextPerm = nextPermutation(array);

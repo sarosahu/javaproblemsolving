@@ -10,7 +10,7 @@ import java.util.Map;
  *
  * Write a function that takes in a non-empty array of distinct integers and an integer
  * representing a target sum. The function should find all quadruplets in the array that
- * sum up to the target sum and return a 2 dimensional array of all these quadruplets in
+ * sum up to the target sum and return a 2-dimensional array of all these quadruplets in
  * no particular order.
  *
  * If no four numbers sum up to the target sum, the function should return an empty array.
@@ -49,7 +49,7 @@ public class FourNumberSum {
         List<Integer[]> quadruplets = new ArrayList<>();
 
         for (int i = 0; i < array.length; ++i) {
-            for (int j = i + 1; j < array.length; ++j) {
+            for (int j = i + 1; j < array.length && !allPairSums.isEmpty(); ++j) {
                 int currSum = array[i] + array[j];
                 int diff = targetSum - currSum;
                 if (allPairSums.containsKey(diff)) {
@@ -75,5 +75,17 @@ public class FourNumberSum {
 
         }
         return quadruplets;
+    }
+
+    public static void main(String[] args) {
+        int [] arr = {7, 6, 4, -1, 1, 2};
+        int target = 16;
+        List<Integer[]> results = fourNumberSumE(arr, target);
+        for (Integer[] result : results) {
+            for (int e : result) {
+                System.out.printf("%d, ", e);
+            }
+            System.out.println();
+        }
     }
 }

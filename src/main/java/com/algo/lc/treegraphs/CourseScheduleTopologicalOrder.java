@@ -44,6 +44,9 @@ public class CourseScheduleTopologicalOrder {
 
         Stack<Integer> stack = new Stack<>();
         for (Node node : graph.getNodes()) {
+            if (this.hasCycle) {
+                break;
+            }
             if (node.state == Node.State.Unvisited) {
                 topologicalSortUtil(node, stack);
             }

@@ -85,4 +85,11 @@ public class    LongestPalindromicSubstring {
         }
         return r - l - 1;
     }
+
+    public static void main(String[] args) {
+        String s = "acdedcded";
+        LongestPalindromicSubstring obj = new LongestPalindromicSubstring();
+        String longestPalindromicSubstring = obj.longestPalindrome2(s);
+        System.out.println("Longest palindromic substring : " + longestPalindromicSubstring);
+    }
 }

@@ -36,7 +36,6 @@ package com.algo.lc.topintq.array;
 
 import com.algo.util.Utils;
 
-
 public class RotateArray {
     public static void rotate(int[] nums, int k) {
 

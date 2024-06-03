@@ -23,30 +23,30 @@ package com.algo.ae.bintree;
  * Sample Output: 18 // 5 +2 + 1 + 3 + 7
  */
 public class MaxPathSumInBinaryTree {
-    static int maxSumPath = Integer.MIN_VALUE;
+    private int maxPathSum = Integer.MIN_VALUE;
 
     // Time: O(n), space: O(log(n))
-    public static int maxPathSum(BinaryTree tree) {
+    public int maxPathSum(BinaryTree tree) {
         maxPathSumHelper(tree);
-        return maxSumPath;
+        return maxPathSum;
     }
 
-    public static int maxPathSumHelper(BinaryTree node) {
+    public int maxPathSumHelper(BinaryTree node) {
         if (node == null) return 0;
 
         // max sum on the left and right sub-trees of node
-        int leftSum = Math.max(maxPathSumHelper(node.left), 0);
-        int rightSum = Math.max(maxPathSumHelper(node.right), 0);
+        int leftSubTreeMaxSumPath = Math.max(maxPathSumHelper(node.left), 0);
+        int rightSubTreeMaxSumPath = Math.max(maxPathSumHelper(node.right), 0);
 
         // the maximum path sum to start a new path where `node` is a highest node
-        int maxPathWithCurrentNode = node.value + leftSum + rightSum;
+        int maxPathSumWithCurrentNode = node.value + leftSubTreeMaxSumPath + rightSubTreeMaxSumPath;
 
         // update max_sum if it's better to start a new path
-        maxSumPath = Math.max(maxSumPath, maxPathWithCurrentNode);
+        maxPathSum = Math.max(maxPathSum, maxPathSumWithCurrentNode);
 
         // for recursion :
-        // return the max path sum if continue the same path
-        return node.value + Math.max(leftSum, rightSum);
+        // return the max sum path if continue the same path
+        return node.value + Math.max(leftSubTreeMaxSumPath, rightSubTreeMaxSumPath);
     }
 
     static class BinaryTree {
