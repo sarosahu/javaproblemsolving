@@ -58,38 +58,43 @@ public class    LongestPalindromicSubstring {
     }
 
     public String longestPalindrome(String s) {
-        if (s == null || s.length() < 1) {
+        if (s == null || s.isEmpty()) {
             return "";
         }
         if (s.length() == 1) {
             return s;
         }
-        int start = 0, end = 0;
-        for (int i = 0; i < s.length(); ++i) {
-            int len1 = expandAroundCenter(s, i, i);
-            int len2 = expandAroundCenter(s, i, i + 1);
-            int len = Math.max(len1, len2);
-            if (len > end - start) {
-                start = i - (len - 1) / 2;
-                end = i + len / 2;
+        Boundary boundary = new Boundary(0, 0);
+        for (int i = 0; i < s.length() - 1; ++i) {
+            expandAroundCenter(s, i, i, boundary);
+            if (s.charAt(i) == s.charAt(i + 1)) {
+                expandAroundCenter(s, i, i + 1, boundary);
             }
         }
-        return s.substring(start, end + 1);
+        return s.substring(boundary.start, boundary.end + 1);
     }
 
-    private int expandAroundCenter(String s, int left, int right) {
+    private void
+    expandAroundCenter(String s, int left, int right, Boundary boundary) {
         int l = left, r = right;
-        while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {
+        while (l > 0 && r < s.length() - 1 && s.charAt(l - 1) == s.charAt(r + 1)) {
             --l;
             ++r;
         }
-        return r - l - 1;
+        int currLen = r - l + 1;
+        if (currLen > boundary.end - boundary.start + 1) {
+            boundary.start = l;
+            boundary.end = r;
+        }
     }
 
     public static void main(String[] args) {
         String s = "acdedcded";
         LongestPalindromicSubstring obj = new LongestPalindromicSubstring();
         String longestPalindromicSubstring = obj.longestPalindrome2(s);
+        System.out.println("Longest palindromic substring 2: " + longestPalindromicSubstring);
+
+        longestPalindromicSubstring = obj.longestPalindrome(s);
         System.out.println("Longest palindromic substring : " + longestPalindromicSubstring);
     }
 }

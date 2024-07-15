@@ -52,6 +52,9 @@ public class LongestPalindromicSubstring {
 
     //Time: O(N^2), space : O(N)
     public static String longestPalindromicSubstringE(String str) {
+        if (str == null || str.isEmpty()) {
+            return "";
+        }
         if (str.length() <= 1) {
             return str;
         }

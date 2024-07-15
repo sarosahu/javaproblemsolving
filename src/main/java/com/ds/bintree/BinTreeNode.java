@@ -11,6 +11,12 @@ public class BinTreeNode<E> {
         leftNode = rightNode = null; // node has no children
     }
 
+    public BinTreeNode(E data, BinTreeNode<E> leftNode, BinTreeNode<E> rightNode) {
+        this.data = data;
+        this.leftNode = leftNode;
+        this.rightNode = rightNode;
+    }
+
     public E getData() {
         return this.data;
     }
