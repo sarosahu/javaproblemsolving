@@ -100,7 +100,7 @@ public class MaximumScoreFromMultiplication {
     // {
     // Bottom-up approach with iteration
     // Time complexity: O(M^2), space: O(M^2)
-    public int maximumScoreBU(int[] nums, int[] multipliers) {
+    public static int maximumScoreBU(int[] nums, int[] multipliers) {
         int n = nums.length;
         int m = multipliers.length;
         int [][] dp = new int[m + 1][m + 1];
@@ -119,15 +119,45 @@ public class MaximumScoreFromMultiplication {
         return dp[0][0];
     }
     // }
+    // Not working
+    public static int maximumScoreBU2(int[] nums, int[] multipliers) {
+        int n = nums.length;
+        int m = multipliers.length;
+        int [][] dp = new int[m + 1][m + 1];
+
+        for (int i = 0; i <= m; ++i) {
+            Arrays.fill(dp[i], 0);
+        }
+        for (int op = 0; op < m; ++op) {
+            for (int left = 0; left <= op; ++left) {
+                int right = n - 1 - (op - left);
+                int mult = multipliers[op];
+                dp[op][left] = Math.max(mult * nums[left] + dp[op + 1][left + 1],
+                        mult * nums[right] + dp[op + 1][left]);
+            }
+        }
+
+        return dp[m - 1][m - 1];
+    }
 
     public static void main(String[] args) {
-        int [] nums = {-5,-3,-3,-2,7,1};
-        int [] multipliers = {-10,-5,3,4,6};
+        /*int [] nums = {-5,-3,-3,-2,7,1};
+        int [] multipliers = {-10,-5,3,4,6};*/
 
-        int maxScore = maximumScoreBF(nums, multipliers);
+        int [] nums = {1, 2, 3};
+        int [] multipliers = {3, 2, 1};
+
+        int maxScore = Integer.MIN_VALUE;
+        /*maxScore = maximumScoreBF(nums, multipliers);
         System.out.println("Max score : " + maxScore);
 
         maxScore = maximumScoreTD(nums, multipliers);
         System.out.println("Max score from top-down (memo): " + maxScore);
+
+        maxScore = maximumScoreBU(nums, multipliers);
+        System.out.println("Max score (bottom-up approach): " + maxScore);*/
+
+        maxScore = maximumScoreBU2(nums, multipliers);
+        System.out.println("Max score (bottom-up approach): " + maxScore);
     }
 }

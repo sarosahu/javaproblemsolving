@@ -39,12 +39,19 @@ public class NextGreaterElement {
         for (int idx = 0; idx < 2 * array.length; ++idx) {
             int cIdx = idx % array.length;
             int currNum = array[cIdx];
-            while (stack.size() > 0 && currNum > array[stack.peek()]) {
+            while (!stack.isEmpty() && currNum > array[stack.peek()]) {
                 int top = stack.pop();
                 result[top] = currNum;
             }
             stack.push(cIdx);
         }
         return result;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {2, 5, -3, -4, 6, 7, 2};
+        NextGreaterElement obj = new NextGreaterElement();
+        int[] result = obj.nextGreaterElement(arr);
+        System.out.println("Result : " + Arrays.toString(result));
     }
 }

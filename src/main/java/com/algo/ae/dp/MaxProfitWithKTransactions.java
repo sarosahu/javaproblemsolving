@@ -64,7 +64,6 @@ public class MaxProfitWithKTransactions {
             temp = currProfits;
             currProfits = prevProfits;
             prevProfits = temp;
-
         }
 
         return currProfits[prices.length - 1];
