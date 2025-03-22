@@ -63,8 +63,20 @@ public class TopologicalSort {
             }
         }
 
-        // Add edge from source to destination.
-        public void addEdge(int src, int dest) {
+        public Graph(List<Integer> jobs, List<int[]> deps) {
+            for (int i = 0; i < jobs.size(); ++i) {
+                nodes.add(new Node(jobs.get(i)));
+                nodesTable.put(jobs.get(i), nodes.get(i));
+            }
+            // Add edges from dependency list
+            for (int [] dep : deps) {
+                this.addEdge(dep[0], dep[1]);
+            }
+        }
+
+        // Add directed edge from source to destination and
+        // update the dependency number by 1 for dest node.
+        private void addEdge(int src, int dest) {
             Node srcNode = this.getNode(src);
             Node destNode = this.getNode(dest);
             srcNode.addEdge(destNode);
@@ -85,14 +97,8 @@ public class TopologicalSort {
     }
 
     // Time : O(j + d), space : O(j + d)
-    public static List<Integer> topologicalSort(List<Integer> jobs, List<Integer[]> deps) {
-        Graph g = new Graph(jobs);
-        for (int i = 0; i < deps.size(); ++i) {
-            Integer[] dependency = deps.get(i);
-            int src = dependency[0];
-            int dest = dependency[1];
-            g.addEdge(src, dest);
-        }
+    public static List<Integer> topologicalSort(List<Integer> jobs, List<int[]> deps) {
+        Graph g = new Graph(jobs, deps);
         return getOrderedJobs(g);
     }
 
@@ -110,7 +116,7 @@ public class TopologicalSort {
             Node currNode = nodesWithNoDependencies.poll();
             orderedJobs.add(currNode.getId());
 
-            // Now remove dependency.
+            // Now deduct dependency # for the edge node by 1
             for (Node edgeNode : currNode.getEdges()) {
                 int numDependenciesOfEdgeNode = edgeNode.getNumDependencies();
                 edgeNode.setNumDependencies(numDependenciesOfEdgeNode - 1);
@@ -120,13 +126,31 @@ public class TopologicalSort {
             }
         }
 
+        // After traversing the above queue, if any of the nodes have dependency left
+        // that means it has a cycle and it this case return empty list.
         boolean graphHasCycle = false;
         for (Node node : graph.getNodeList()) {
             if (node.getNumDependencies() > 0) {
                 graphHasCycle = true;
+                break;
             }
         }
-        return graphHasCycle ? new ArrayList<Integer>() : orderedJobs;
+        return graphHasCycle ? List.of() : orderedJobs;
+    }
+
+    public static void main(String[] args) {
+        List<Integer> jobs = List.of(1, 2, 3, 4);
+        // [[1, 2], [1, 3], [3, 2], [4, 2], [4, 3]]
+        List<int[]> deps = List.of(
+                new int[]{1, 2}
+                ,new int[]{1, 3}
+                ,new int[]{3, 2}
+                ,new int[]{4, 2}
+                ,new int[]{4, 3}
+                //,new int[]{2, 1} // For making a cycle
+                );
+        List<Integer> orderedJobs = topologicalSort(jobs, deps);
+        System.out.println("Ordered jobs : " + orderedJobs.toString());
     }
 
 }

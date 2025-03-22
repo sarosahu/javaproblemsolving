@@ -20,10 +20,10 @@ import java.util.List;
  */
 public class MinHeapConstruction {
     static class MinHeap {
-        List<Integer> heap = new ArrayList<Integer>();
+        private List<Integer> heap;
 
         public MinHeap(List<Integer> array) {
-            heap = buildHeap(array);
+            this.heap = buildHeap(array);
         }
 
         // Time : O(n), space : O(1)
@@ -38,22 +38,21 @@ public class MinHeapConstruction {
         }
 
         // Time : O(log(n)), space : O(1)
-        public void siftDown(int currentIdx, int endIdx, List<Integer> heap) {
+        public void siftDown(int currIdx, int endIdx, List<Integer> arr) {
             // Write your code here.
-            int childOneIndex = currentIdx * 2 + 1;
-            while (childOneIndex <= endIdx) {
-                int childTwoIndex = currentIdx * 2 + 2 <= endIdx ?
-                        currentIdx * 2 + 2 : -1;
-                int indexToSwap;
-                if (childTwoIndex != -1 && heap.get(childTwoIndex) < heap.get(childOneIndex)) {
-                    indexToSwap = childTwoIndex;
-                } else {
-                    indexToSwap = childOneIndex;
+            int childOneIdx = currIdx * 2 + 1;
+            while (childOneIdx <= endIdx) {
+                int childTwoIdx = currIdx * 2 + 2 <= endIdx ?
+                        currIdx * 2 + 2 : -1;
+                int idxToSwap = childOneIdx;
+                if (childTwoIdx != -1 && arr.get(childTwoIdx) < arr.get(childOneIdx)) {
+                    idxToSwap = childTwoIdx;
                 }
-                if (heap.get(indexToSwap) < heap.get(currentIdx)) {
-                    swap(currentIdx, indexToSwap, heap);
-                    currentIdx = indexToSwap;
-                    childOneIndex = currentIdx * 2 + 1;
+
+                if (arr.get(idxToSwap) < arr.get(currIdx)) {
+                    swap(currIdx, idxToSwap, arr);
+                    currIdx = idxToSwap;
+                    childOneIdx = currIdx * 2 + 1;
                 } else {
                     return;
                 }

@@ -1,9 +1,6 @@
 package com.algo.epi.recursion;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class PowerSetWithDups {
 
@@ -49,7 +46,7 @@ public class PowerSetWithDups {
 
         powerSet.add(new ArrayList<>(selectedSoFar));
         for (int i = fromIdx; i < input.size(); ++i) {
-            if (i != fromIdx && input.get(i) == input.get(i - 1)) {
+            if (i != fromIdx && Objects.equals(input.get(i), input.get(i - 1))) {
                 continue;
             }
             selectedSoFar.add(input.get(i));

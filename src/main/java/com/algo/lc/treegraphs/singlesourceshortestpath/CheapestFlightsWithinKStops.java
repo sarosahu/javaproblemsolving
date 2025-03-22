@@ -1,6 +1,16 @@
 package com.algo.lc.treegraphs.singlesourceshortestpath;
 
-import java.util.*;
+//import java.util.;
+import com.algo.util.Pair;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 /**
  * There are n cities connected by some number of flights. You are given an array
@@ -47,44 +57,76 @@ import java.util.*;
  * src != dst
  */
 public class CheapestFlightsWithinKStops {
+    static class Node {
+        private final int id;
+        // Pair {edgeNodeId, price from this node to edgeNodeId}
+        private final List<Pair<Integer, Integer>> edges = new ArrayList<>();
+        public Node(int id) {
+            this.id = id;
+        }
+        public void addEdge(int nodeId, int price) {
+            this.edges.add(new Pair<>(nodeId, price));
+        }
+        public List<Pair<Integer, Integer>> getEdges() {
+            return this.edges;
+        }
+        public int getId() {
+            return this.id;
+        }
+    }
+
+    static class Graph {
+        private final List<Node> nodes = new ArrayList<>();
+        public Graph(int n) {
+            for (int i = 0; i < n; ++i) {
+                Node node = new Node(i);
+                nodes.add(node);
+            }
+        }
+        public void addEdges(int[][] edges) {
+            for (int[] edge : edges) {
+                Node srcNode = this.nodes.get(edge[0]);
+                Node destNode = this.nodes.get(edge[1]);
+                srcNode.addEdge(edge[1], edge[2]);
+            }
+        }
+        public List<Node> getNodes() {
+            return this.nodes;
+        }
+    }
     // BFS approach
     public static int findCheapestPriceBFS(int n, int[][] flights, int src, int dst, int k) {
-        Map<Integer, List<int[]>> adj = new HashMap<>();
-        for (int [] flight : flights) {
-            adj.computeIfAbsent(flight[0], value -> new ArrayList<>())
-                    .add(new int[] {flight[1], flight[2]});
-        }
+        Graph graph = new Graph(n);
+        graph.addEdges(flights);
         int[] dist = new int[n];
         Arrays.fill(dist, Integer.MAX_VALUE);
-
         Queue<int[]> queue = new LinkedList<>();
         queue.offer(new int[] {src, 0});
+        dist[src] = 0;
+
         int stops = 0;
         while (stops <= k && !queue.isEmpty()) {
             int sz = queue.size();
-            while (sz > 0) {
+            // Iterate on current level
+            while (sz-- > 0) {
                 int[] curr = queue.poll();
-                int node = curr[0];
-                int distance = curr[1];
+                Node currNode = graph.getNodes().get(curr[0]);
+                int currPrice = curr[1];
 
-                if (!adj.containsKey(node)) {
-                    continue;
-                }
-                // Loop over neighbors of popped node.
-                for (int[] e : adj.get(node)) {
-                    int neighbour = e[0];
-                    int price = e[1];
-                    if (price + distance >= dist[neighbour]) {
+                for (var edge : currNode.getEdges()) {
+                    int edgeNodeId = edge.getKey();
+                    int edgePrice = edge.getValue();
+                    if (currPrice + edgePrice >= dist[edgeNodeId]) {
                         continue;
                     }
-                    dist[neighbour] = price + distance;
-                    queue.offer(new int[] {neighbour, dist[neighbour]});
+                    dist[edgeNodeId] = currPrice + edgePrice;
+                    queue.offer(new int[] {edgeNodeId, dist[edgeNodeId]});
                 }
-                sz -= 1;
             }
             ++stops;
         }
-        return dist[dst] == Integer.MAX_VALUE ? -1 : dist[dst];
+        int minPrice = dist[dst];
+        return minPrice == Integer.MAX_VALUE ? -1 : minPrice;
     }
 
     public static int findCheapestPriceBellmanFord(int n, int[][] flights, int src, int dst, int k) {
@@ -108,6 +150,50 @@ public class CheapestFlightsWithinKStops {
         return dist[dst] == Integer.MAX_VALUE ? -1 : dist[dst];
     }
 
+    public static int findCheapestPriceDijkstra(int n, int[][] flights, int src, int dst, int k) {
+        Graph graph = new Graph(n);
+        graph.addEdges(flights);
+
+        Queue<NodeInfo> pq = new PriorityQueue<>((a, b) -> a.relPrice - b.relPrice);
+        pq.offer(new NodeInfo(0, src, 0));
+        int [] stops = new int[n];
+        Arrays.fill(stops, Integer.MAX_VALUE);
+
+        while (!pq.isEmpty()) {
+            NodeInfo curr = pq.poll();
+            int currPrice = curr.relPrice;
+            int currNodeId = curr.node;
+            int nStopsToCurrNode = curr.stops;
+
+            // We already have encountered a path with lower cost and fewer stops
+            // or the number of stops exceed the limit (no of stops)
+            if (nStopsToCurrNode > stops[currNodeId] || nStopsToCurrNode > k + 1) {
+                continue;
+            }
+            stops[currNodeId] = nStopsToCurrNode;
+            if (currNodeId == dst) {
+                return currPrice;
+            }
+            Node currNode = graph.getNodes().get(currNodeId);
+            for (Pair<Integer, Integer> edge : currNode.getEdges()) {
+                int edgeNodeId = edge.getKey();
+                pq.offer(new NodeInfo(currPrice + edge.getValue(), edgeNodeId, nStopsToCurrNode + 1));
+            }
+        }
+        return -1;
+    }
+
+    static class NodeInfo {
+        int relPrice;
+        int node;
+        int stops;
+        public NodeInfo(int relPrice, int node, int stops) {
+            this.relPrice = relPrice;
+            this.node = node;
+            this.stops = stops;
+        }
+    }
+
     public static void main(String[] args) {
         int [][] flights = {
                 {0,1,100},
@@ -118,8 +204,12 @@ public class CheapestFlightsWithinKStops {
         };
 
         int cheapestPrice = findCheapestPriceBFS(4, flights, 0, 3, 1);
-        System.out.println("Cheapest price : " + cheapestPrice);
+        System.out.println("Cheapest price(BFS) : " + cheapestPrice);
+        System.out.println("================");
         cheapestPrice = findCheapestPriceBellmanFord(4, flights, 0, 3, 1);
-        System.out.println("Cheapest price : " + cheapestPrice);
+        System.out.println("Cheapest price(BellmanFord) : " + cheapestPrice);
+        System.out.println("================");
+        cheapestPrice = findCheapestPriceDijkstra(4, flights, 0, 3, 1);
+        System.out.println("Cheapest price(Dijkstra) : " + cheapestPrice);
     }
 }

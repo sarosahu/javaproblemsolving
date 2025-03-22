@@ -44,6 +44,7 @@ public class NetworkDelayTime {
             this.dist = dist;
         }
     }
+
     static class Node {
         int id;
         List<EdgeNode> edgeNodes = new ArrayList<>();
@@ -61,9 +62,9 @@ public class NetworkDelayTime {
             }
         }
 
-        public void addEdge(int src, int dest, int distance) {
-            Node srcNode = nodes.get(src);
-            Node destNode = nodes.get(dest);
+        public void addEdge(int srcIdx, int destIdx, int distance) {
+            Node srcNode = nodes.get(srcIdx);
+            Node destNode = nodes.get(destIdx);
             srcNode.edgeNodes.add(new EdgeNode(destNode, distance));
         }
     }
@@ -92,7 +93,7 @@ public class NetworkDelayTime {
         for (Node node : g.nodes) {
             minTime = Math.max(minTime, node.relDist);
         }
-        return minTime == Integer.MAX_VALUE || minTime == -1 ? -1 : minTime;
+        return minTime == Integer.MAX_VALUE ? -1 : minTime;
     }
 
     public static void main(String[] args) {

@@ -90,7 +90,8 @@ public class ReversePairs {
     }
 
     public static void main(String[] args) {
-        int[] arr = {1,3,2,3,1};
+        //int[] arr = {1,3,2,3,1};
+        int [] arr = {11, 8, 15, 5, 4, 11, 2, 3};
         ReversePairs obj = new ReversePairs();
         int count = obj.reversePairs(arr);
         System.out.println("Count : " + count);

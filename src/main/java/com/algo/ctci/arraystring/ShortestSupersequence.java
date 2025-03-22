@@ -49,7 +49,8 @@ public class ShortestSupersequence {
     }
 
     private Range shortestClosure(List<Queue<Integer>> locations) {
-        Queue<HeapNode> minHeap = new PriorityQueue<>(locations.size(), Comparator.comparingInt(a -> a.locationWithinList));
+        Queue<HeapNode> minHeap = new PriorityQueue<>(locations.size(),
+                Comparator.comparingInt(a -> a.locationWithinList));
         int max = Integer.MIN_VALUE;
         for (int i = 0; i < locations.size(); ++i) {
             Queue<Integer> location = locations.get(i);
@@ -102,12 +103,13 @@ public class ShortestSupersequence {
                 }
                 locations.add(new ListNode(idx, curr));
                 dict.put(curr, locations.get(locations.size() - 1));
-            }
-            if (locations.size() == elements.length &&
-                ((range.start == -1 && range.end == -1) ||
-                  idx - locations.get(0).index < range.end - range.start)) {
-                range.start = locations.get(0).index;
-                range.end = idx;
+                //}
+                if (locations.size() == elements.length &&
+                        ((range.start == -1 && range.end == -1) ||
+                                idx - locations.get(0).index < range.end - range.start)) {
+                    range.start = locations.get(0).index;
+                    range.end = idx;
+                }
             }
             ++idx;
         }
