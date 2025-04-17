@@ -17,41 +17,42 @@ import java.util.Arrays;
 public class KnuthMorrisPrattAlgorithm {
 
     // Time : O(n + m) | space : O(m)
-    public static boolean knuthMorrisPrattAlgorithm(String string, String substring) {
-        int[] pattern = buildPattern(substring);
-        return isMatching(string, substring, pattern);
+    public static boolean knuthMorrisPrattAlgorithm(String text, String pattern) {
+        // Find out the longest prefix which is a suffix
+        int[] lps = buildPattern(pattern);
+        return isMatching(text, pattern, lps);
     }
 
     public static int[] buildPattern(String substring) {
-        int[] pattern = new int[substring.length()];
-        Arrays.fill(pattern, -1);
+        int[] lps = new int[substring.length()];
+        Arrays.fill(lps, -1);
         int j = 0, i = 1;
         while(i < substring.length()) {
             if (substring.charAt(i) == substring.charAt(j)) {
-                pattern[i] = j;
+                lps[i] = j;
                 ++i;
                 ++j;
             } else if (j > 0) {
-                j = pattern[j - 1] + 1;
+                j = lps[j - 1] + 1;
             } else {
                 ++i;
             }
         }
-        return pattern;
+        return lps;
     }
 
-    public static boolean isMatching(String string, String substring, int[] pattern) {
+    public static boolean isMatching(String text, String pattern, int[] lps) {
         int i = 0, j = 0;
 
-        while (i + substring.length() - j <= string.length()) {
-            if (string.charAt(i) == substring.charAt(j)) {
-                if (j == substring.length() - 1) {
+        while (i + pattern.length() - j <= text.length()) {
+            if (text.charAt(i) == pattern.charAt(j)) {
+                if (j == pattern.length() - 1) {
                     return true;
                 }
                 ++i;
                 ++j;
             } else if (j > 0) {
-                j = pattern[j - 1] + 1;
+                j = lps[j - 1] + 1;
             } else {
                 ++i;
             }
@@ -60,12 +61,16 @@ public class KnuthMorrisPrattAlgorithm {
     }
 
     public static void main(String[] args) {
-        String string = "aefoaefcdaefcdaed";
-        String substring = "aefcdaed";
-        if (knuthMorrisPrattAlgorithm(string, substring)) {
-            System.out.println("Matching!");
-        } else {
-            System.out.println("Not matching.");
+        String [] texts = {"aefoaefcdaefcdaed", "Helloworld", "edu"};
+        String [] patterns = {"aefcdaed", "World", "edu"};
+        for (int i = 0; i < texts.length; ++i) {
+            String text = texts[i];
+            String pattern = patterns[i];
+            if (knuthMorrisPrattAlgorithm(text, pattern)) {
+                System.out.println("Pattern \"" + pattern + "\" is found within \"" + text + "\"");
+            } else {
+                System.out.println("Pattern \"" + pattern + "\" is not found within \"" + text + "\"");
+            }
         }
     }
 }
