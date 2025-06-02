@@ -14,7 +14,7 @@ public class PowerSetWithDups {
 
         int subsetSize = 0;
         for (int i = 0; i < nums.length; ++i) {
-            int startIdx = (i >= 1 && nums[i] == nums[i - 1]) ? subsetSize : 0;
+            int startIdx = (i > 0 && nums[i] == nums[i - 1]) ? subsetSize : 0;
             subsetSize = subsets.size();
 
             for (int j = startIdx; j < subsetSize; ++j) {
@@ -64,6 +64,7 @@ public class PowerSetWithDups {
         for (List<Integer> powerSet : powerSets3) {
             System.out.println(powerSet.toString());
         }
+        System.out.println(">>>>>>>>>>>>>>>>>>>>");
 
         int[] nums = {1, 2, 3, 2};
         List<List<Integer>> powerSets = obj.subsetWithDuplicateI(nums);

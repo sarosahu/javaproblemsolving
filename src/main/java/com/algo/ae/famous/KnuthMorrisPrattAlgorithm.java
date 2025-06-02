@@ -23,12 +23,12 @@ public class KnuthMorrisPrattAlgorithm {
         return isMatching(text, pattern, lps);
     }
 
-    public static int[] buildPattern(String substring) {
-        int[] lps = new int[substring.length()];
+    public static int[] buildPattern(String pattern) {
+        int[] lps = new int[pattern.length()];
         Arrays.fill(lps, -1);
         int j = 0, i = 1;
-        while(i < substring.length()) {
-            if (substring.charAt(i) == substring.charAt(j)) {
+        while(i < pattern.length()) {
+            if (pattern.charAt(i) == pattern.charAt(j)) {
                 lps[i] = j;
                 ++i;
                 ++j;

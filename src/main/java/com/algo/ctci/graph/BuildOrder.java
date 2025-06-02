@@ -130,6 +130,7 @@ public class BuildOrder {
         String[] projects = {
                 "a", "b", "c", "d", "e", "f"
         };
+
         String[][] dependencies = {
                 {"a", "d"}, {"f", "b"}, {"b", "d"}, {"f", "a"}, {"d", "c"}
         };

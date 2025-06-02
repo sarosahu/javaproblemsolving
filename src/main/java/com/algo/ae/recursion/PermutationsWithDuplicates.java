@@ -44,6 +44,7 @@ public class PermutationsWithDuplicates {
 
     public static List<List<Integer>>
     permutationsWithDuplicates(List<Integer> array) {
+        array.sort(Integer::compare);
         List<List<Integer>> perms = new ArrayList<>();
         permutationsWithDuplicatesHelper(0, array, perms);
         return perms;
@@ -58,7 +59,7 @@ public class PermutationsWithDuplicates {
             return;
         }
         for (int i = currIndex; i < array.size(); ++i) {
-            if (i != currIndex && array.get(i) == array.get(i - 1)) {
+            if (i != currIndex && array.get(i).equals(array.get(i - 1))) {
                 continue;
             }
             swap(array, i, currIndex);
@@ -76,8 +77,9 @@ public class PermutationsWithDuplicates {
         array.set(j, temp);
     }
     public static void main(String[] args) {
-        List<Integer> array = Arrays.asList(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2);
+        //List<Integer> array = Arrays.asList(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2);
         //List<Integer> array = Arrays.asList(1, 2, 2);
+        List<Integer> array = Arrays.asList(2, 1, 2);
         System.out.println("Calling getPermutationsWithDuplicates()");
         List<List<Integer>> permutations = getPermutationsWithDuplicates(array);
         for (List<Integer> permutation : permutations) {
