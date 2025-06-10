@@ -48,8 +48,28 @@ public class NextGreaterElement {
         return result;
     }
 
+    public int[] nextGreaterElement2(int[] array) {
+        // Write your code here.
+        int[] result = new int[array.length];
+        Arrays.fill(result, -1);
+
+        Stack<Integer> stack = new Stack<>();
+
+        for (int idx = 0; idx < 2 * array.length; ++idx) {
+            int cIdx = idx % array.length;
+            int currNum = array[cIdx];
+            while (!stack.isEmpty() && currNum > array[stack.peek()]) {
+                int top = stack.pop();
+                result[top] = currNum;
+            }
+            stack.push(cIdx);
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         int[] arr = {2, 5, -3, -4, 6, 7, 2};
+        System.out.println("Original : " + Arrays.toString(arr));
         NextGreaterElement obj = new NextGreaterElement();
         int[] result = obj.nextGreaterElement(arr);
         System.out.println("Result : " + Arrays.toString(result));

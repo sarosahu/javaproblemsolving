@@ -1,5 +1,7 @@
 package com.algo.ae.sort;
 
+import java.util.Arrays;
+
 /**
  * Merge Sort
  *
@@ -31,7 +33,7 @@ public class MergeSort {
             return;
         }
 
-        int midIdx = (startIdx + endIdx) / 2;
+        int midIdx = startIdx + (endIdx - startIdx) / 2;
         mergeSort(auxArray, startIdx, midIdx, mainArray);
         mergeSort(auxArray, midIdx + 1, endIdx, mainArray);
 
@@ -66,8 +68,11 @@ public class MergeSort {
     }
 
     public static void main(String[] args) {
-        int [] arr = new int[] {5, 2, 3, 1};
+        //int [] arr = new int[] {5, 2, 3, 1};
+        int [] arr = new int[] {10, 5, 15, 7, 9, 6, 3, 20, 30, 25, 11};
+        System.out.println("Before sort: " + Arrays.toString(arr));
         //int [] arr = new int[] {5, 1, 4, 3, 2};
         int [] sortedArray = mergeSort(arr);
+        System.out.println("After sort: " + Arrays.toString(sortedArray));
     }
 }
